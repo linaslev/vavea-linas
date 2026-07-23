@@ -1,26 +1,87 @@
 # Vavea & Linas — Save the Date
 
-A responsive static wedding website for **31 July 2027 in Vilnius, Lithuania**. It uses plain HTML, CSS, and JavaScript, so there is no build step and it can be hosted on any static hosting service.
+A simple static "save the date" website for Vavea & Linas's wedding —
+**July 31, 2027, Vilnius, Lithuania**.
 
-## Preview locally
+Includes a live countdown and a form for guests to submit their name and
+mailing address so invitations can be sent later.
 
-Open `index.html` directly in a browser, or run any simple static server from this directory (for example, VS Code's built-in preview or `python3 -m http.server 8000`).
+## Project structure
 
-## Connect the address form
+```
+index.html        Main page (hero, details, RSVP/address form)
+css/style.css      All styling
+js/script.js       Countdown timer + form submission logic
+```
 
-A static website cannot store submissions by itself. The form is prepared for [Formspree](https://formspree.io/), which provides a submission endpoint while keeping this site fully static:
+No build tools, frameworks, or dependencies — just plain HTML/CSS/JS, so it
+can be hosted anywhere that serves static files.
 
-1. Create a Formspree form and choose the email address that should receive submissions.
-2. Copy the form endpoint, which looks like `https://formspree.io/f/abcxyzde`.
-3. In `index.html`, replace the `data-endpoint` value `https://formspree.io/f/YOUR_FORM_ID` with that endpoint.
-4. Submit a test response and confirm that the first name, surname, and postal address arrive correctly.
+## 1. Set up the form backend (Formspree)
 
-Until the placeholder is replaced, the website deliberately does not attempt to submit personal data and displays a configuration message.
+The form currently posts to a placeholder URL. To make it actually deliver
+submissions to you:
 
-## Hosting
+1. Go to [formspree.io](https://formspree.io) and create a free account.
+2. Create a new form and copy the endpoint it gives you, e.g.
+   `https://formspree.io/f/abcd1234`.
+3. Open `index.html` and replace the placeholder in the form's `action`
+   attribute:
 
-Upload the files in this directory to GitHub Pages, Netlify, Cloudflare Pages, or any standard web host. No install or build command is needed; publish the repository root.
+   ```html
+   <form id="rsvp-form" class="rsvp-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+   ```
 
-## Privacy
+4. Submit a test entry from the live site — Formspree requires one
+   confirmation submission the first time before it starts forwarding
+   emails.
+5. In the Formspree dashboard you can view/export all submissions (name,
+   surname, address, email, guest count) as CSV at any time — handy for
+   building your invitation mailing list.
 
-Postal addresses are personal data. Limit access to the receiving inbox and Formspree account, keep the information only as long as needed for invitations, and publish a privacy notice suitable for your jurisdiction before collecting responses.
+The included `_gotcha` hidden field is Formspree's built-in honeypot for
+basic spam protection — no action needed.
+
+> Alternative: [Getform](https://getform.io) works the same way — just swap
+> the `action` URL.
+
+## 2. Customize content
+
+- Wedding date/time used for the countdown is set in `js/script.js`:
+  ```js
+  const WEDDING_DATE = new Date("2027-07-31T15:00:00+03:00");
+  ```
+  Adjust the time if you'd like the countdown to target a specific ceremony
+  time.
+- Colors and fonts are defined as CSS variables at the top of
+  `css/style.css` (`:root { ... }`).
+- Add a couple photo to the hero by dropping an image into a new `img/`
+  folder and referencing it in `index.html`/`style.css`.
+
+## 3. Hosting (free static hosting options)
+
+Any static host works. A few easy free choices:
+
+### GitHub Pages
+1. Push this repo to GitHub.
+2. In the repo settings, go to **Pages** → set source to the `main` branch
+   (root folder).
+3. Your site will be live at `https://<username>.github.io/<repo>/`.
+
+### Netlify
+1. Drag-and-drop this folder into [app.netlify.com/drop](https://app.netlify.com/drop), or
+2. Connect the GitHub repo for automatic deploys on every push.
+
+### Vercel / Cloudflare Pages
+Both support "no framework / static site" deployments — just point them at
+this folder with no build command.
+
+## 4. Local preview
+
+Open `index.html` directly in a browser, or serve it locally:
+
+```sh
+python3 -m http.server 8000
+```
+
+Then visit `http://localhost:8000`.

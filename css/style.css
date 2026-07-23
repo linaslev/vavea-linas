@@ -1,0 +1,251 @@
+:root {
+  --bg: #e9f1e6;
+  --bg-soft: #f3f8f0;
+  --ink: #33402f;
+  --muted: #7c8a73;
+  --line: #cfdcc7;
+  --accent: #8fa885;
+  --font: "Jost", sans-serif;
+  --max-width: 460px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ===== Tiny leaf marks ===== */
+.leaf {
+  width: 22px;
+  height: 34px;
+  color: var(--accent);
+  opacity: 0.55;
+  display: block;
+}
+
+.leaf-a {
+  margin: 0 auto 2.5rem;
+}
+
+.leaf-b {
+  margin: 3rem auto 0;
+  transform: rotate(180deg);
+}
+
+.leaf-c {
+  width: 16px;
+  height: 24px;
+  margin: 0 auto 0.75rem;
+  opacity: 0.4;
+}
+
+/* ===== Hero ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5rem 0;
+}
+
+.kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1.75rem;
+}
+
+.names {
+  font-size: clamp(2.4rem, 9vw, 3.4rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0;
+  color: var(--ink);
+}
+
+.amp {
+  display: inline-block;
+  margin: 0 0.35em;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent);
+}
+
+.date {
+  margin: 2rem 0 0.35rem;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: var(--ink);
+}
+
+.place {
+  margin: 0 0 2.75rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+/* ===== Countdown ===== */
+.countdown {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 44px;
+}
+
+.countdown-number {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.countdown-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+/* ===== RSVP ===== */
+.rsvp {
+  padding: 3rem 0 5rem;
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+
+.section-note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 2rem;
+  letter-spacing: 0.02em;
+}
+
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  text-align: left;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.rsvp-form input,
+.rsvp-form textarea {
+  font-family: var(--font);
+  font-size: 0.92rem;
+  font-weight: 300;
+  padding: 0.65rem 0;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  resize: none;
+}
+
+.rsvp-form input::placeholder,
+.rsvp-form textarea::placeholder {
+  color: var(--muted);
+}
+
+.rsvp-form input:focus,
+.rsvp-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.submit-btn {
+  align-self: center;
+  margin-top: 1rem;
+  padding: 0.65rem 2.5rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: var(--ink);
+  color: var(--bg-soft);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-success p,
+.form-error p {
+  margin: 1.5rem 0 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.form-error p {
+  color: #a15b4a;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  text-align: center;
+  padding: 2.5rem 0 3.5rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 420px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .countdown {
+    gap: 1.1rem;
+  }
+}
