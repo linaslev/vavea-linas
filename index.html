@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3eee7">
+  <meta name="description" content="Save the date for Vavea and Linas — 31 July 2027 in Vilnius, Lithuania.">
+  <meta property="og:title" content="Vavea & Linas — Save the Date">
+  <meta property="og:description" content="31 July 2027 · Vilnius, Lithuania">
+  <meta property="og:type" content="website">
+  <title>Vavea & Linas · 31 July 2027</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Italiana&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#details">Skip to details</a>
+
+  <header class="hero" id="top">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="monogram" href="#top" aria-label="Vavea and Linas, home">V <span>&</span> L</a>
+      <a class="nav-link" href="#address">Share your address</a>
+    </nav>
+
+    <div class="botanical botanical-left" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="botanical botanical-right" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="hero-content">
+      <p class="eyebrow reveal">We are getting married</p>
+      <h1 class="names reveal"><span>Vavea</span><i>&</i><span>Linas</span></h1>
+      <div class="date-lockup reveal" aria-label="31 July 2027">
+        <span>31</span>
+        <span class="date-month">July</span>
+        <span>2027</span>
+      </div>
+      <p class="location reveal">Vilnius <span>·</span> Lithuania</p>
+      <a class="scroll-cue" href="#details" aria-label="Discover more">
+        <span>Save the date</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="details section" id="details">
+      <div class="section-number" aria-hidden="true">01</div>
+      <div class="details-copy reveal">
+        <p class="eyebrow">A summer celebration</p>
+        <h2>Join us in<br><em>Vilnius</em></h2>
+      </div>
+      <div class="details-note reveal">
+        <p>We would be delighted to celebrate our wedding with the people we love most.</p>
+        <p>Please keep this summer Saturday free. A formal invitation with all the details will follow.</p>
+      </div>
+      <div class="city-card reveal" aria-label="Wedding location and date">
+        <div class="sun" aria-hidden="true"></div>
+        <div class="city-line" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="city-card-copy">
+          <p>Saturday</p>
+          <strong>31 · 07 · 27</strong>
+          <p>Vilnius, Lithuania</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="countdown section" aria-labelledby="countdown-title">
+      <p class="eyebrow reveal" id="countdown-title">Until we say “I do”</p>
+      <div class="countdown-grid reveal">
+        <div><strong id="days">—</strong><span>Days</span></div>
+        <div><strong id="hours">—</strong><span>Hours</span></div>
+        <div><strong id="minutes">—</strong><span>Minutes</span></div>
+        <div><strong id="seconds">—</strong><span>Seconds</span></div>
+      </div>
+    </section>
+
+    <section class="address section" id="address">
+      <div class="form-intro reveal">
+        <div class="section-number" aria-hidden="true">02</div>
+        <p class="eyebrow">Invitation details</p>
+        <h2>Where should we<br><em>send the love?</em></h2>
+        <p>Share your postal address so we know where to send your formal invitation.</p>
+      </div>
+
+      <form class="address-form reveal" id="address-form" action="#" data-endpoint="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-row">
+          <div class="field">
+            <label for="first-name">First name</label>
+            <input id="first-name" name="firstName" type="text" autocomplete="given-name" required maxlength="80" placeholder="Vavea">
+          </div>
+          <div class="field">
+            <label for="surname">Surname</label>
+            <input id="surname" name="surname" type="text" autocomplete="family-name" required maxlength="80" placeholder="Surname">
+          </div>
+        </div>
+        <div class="field">
+          <label for="address-line">Postal address</label>
+          <textarea id="address-line" name="address" autocomplete="street-address" required maxlength="500" rows="4" placeholder="Street and house number&#10;City and postal code&#10;Country"></textarea>
+        </div>
+        <input type="hidden" name="_subject" value="Wedding invitation address">
+        <button type="submit">
+          <span>Send my details</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+        </button>
+        <p class="privacy-note">Your details will only be used to send your wedding invitation.</p>
+        <div class="form-message" id="form-message" role="status" aria-live="polite" tabindex="-1"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-mark">V <span>&</span> L</div>
+    <p>See you in Vilnius</p>
+    <p class="footer-date">31 · 07 · 2027</p>
+  </footer>
+</body>
+</html>
