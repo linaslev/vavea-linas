@@ -38,6 +38,12 @@
   --gutter:clamp(1.25rem, 5vw, 5rem);
   --radius:2px;
 
+  /* iOS notch / status bar / home indicator — 0 everywhere else */
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-left:env(safe-area-inset-left,0px);
+  --safe-right:env(safe-area-inset-right,0px);
+
   --f-serif:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --f-script:"Pinyon Script", "Cormorant Garamond", cursive;
   --f-sans:"Jost", "Helvetica Neue", Arial, sans-serif;
@@ -80,7 +86,7 @@ body::before{
   padding:.6rem 1.1rem;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
   text-decoration:none;transition:top .2s var(--ease);
 }
-.skip-link:focus-visible{top:1rem}
+.skip-link:focus-visible{top:calc(1rem + var(--safe-top))}
 
 :focus-visible{outline:2px solid var(--wine-600);outline-offset:3px}
 
@@ -167,14 +173,20 @@ body::before{
 .topbar{
   position:fixed;inset:0 0 auto 0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:1rem var(--gutter);
+  /* the top padding absorbs the iOS status bar / notch, so the bar's own
+     background covers that strip instead of letting the page show through */
+  padding:calc(1rem + var(--safe-top)) var(--gutter) 1rem;
+  padding-left:max(var(--gutter),var(--safe-left));
+  padding-right:max(var(--gutter),var(--safe-right));
   transition:background .4s var(--ease),box-shadow .4s var(--ease),padding .4s var(--ease);
 }
 .topbar.is-stuck{
-  background:color-mix(in srgb,var(--cream-100) 90%,transparent);
+  background:color-mix(in srgb,var(--cream-100) 94%,transparent);
   backdrop-filter:blur(12px) saturate(1.1);
   box-shadow:0 1px 0 color-mix(in srgb,var(--olive-700) 14%,transparent);
-  padding-block:.6rem;
+  /* keep the safe-area inset when the bar shrinks on scroll */
+  padding-top:calc(.6rem + var(--safe-top));
+  padding-bottom:.6rem;
 }
 
 .monogram{
@@ -197,7 +209,7 @@ body::before{
 }
 .topnav a:hover{color:var(--wine-700)}
 .topnav a:hover::after{transform:scaleX(1)}
-.topnav-cta{color:var(--olive-800)!important;border:1px solid var(--sage-300);padding:.55em 1.1em!important}
+.topnav-cta{color:var(--olive-800)!important;border:1px solid var(--sage-300);padding:.55em 1.1em!important;white-space:nowrap}
 .topnav-cta::after{display:none}
 .topnav-cta:hover{background:var(--olive-800);color:var(--cream-50)!important;border-color:var(--olive-800)}
 
@@ -213,6 +225,16 @@ body::before{
 @media (max-width:640px){
   .topnav a:not(.topnav-cta){display:none}
 }
+/* very narrow phones (iPhone SE 1st gen): tighten so the bar never overflows */
+@media (max-width:360px){
+  .topbar{
+    gap:.5rem;
+    padding-left:max(.75rem,var(--safe-left));
+    padding-right:max(.75rem,var(--safe-right));
+  }
+  .topnav-cta{padding:.5em .7em!important;font-size:.62rem}
+  .lang{font-size:.62rem;gap:.25em}
+}
 
 /* ============================================================
    hero
@@ -221,7 +243,7 @@ body::before{
   position:relative;
   min-height:100svh;
   display:grid;place-items:center;
-  padding:7rem var(--gutter) 6.5rem;
+  padding:calc(7rem + var(--safe-top)) var(--gutter) 6.5rem;
   text-align:center;
   overflow:clip;          /* clips the botanicals without trapping content */
   text-wrap:balance;
@@ -441,22 +463,28 @@ body::before{
   filter:saturate(.86) contrast(1.02);
   transition:transform .8s var(--ease),filter .6s var(--ease);
 }
+/* scrim behind the caption — always on so the text stays readable over any
+   photo, and deepens a little on hover */
 .shot::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(to top,color-mix(in srgb,var(--olive-900) 72%,transparent) 0%,transparent 48%);
-  opacity:0;transition:opacity .5s var(--ease);
+  background:linear-gradient(to top,
+    color-mix(in srgb,var(--olive-900) 82%,transparent) 0%,
+    color-mix(in srgb,var(--olive-900) 34%,transparent) 26%,
+    transparent 58%);
+  opacity:.85;transition:opacity .5s var(--ease);
 }
 .shot:hover img{transform:scale(1.05);filter:saturate(1) contrast(1.04)}
 .shot:hover::after,.shot:focus-visible::after{opacity:1}
 
+/* captions are permanently visible */
 .shot-caption{
   position:absolute;left:1rem;right:1rem;bottom:.9rem;z-index:2;
   font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--cream-50);text-align:left;line-height:1.5;
-  opacity:0;transform:translateY(8px);
-  transition:opacity .5s var(--ease),transform .5s var(--ease);
+  text-shadow:0 1px 3px color-mix(in srgb,var(--olive-900) 55%,transparent);
+  transition:transform .5s var(--ease);
 }
-.shot:hover .shot-caption,.shot:focus-visible .shot-caption{opacity:1;transform:none}
+.shot:hover .shot-caption,.shot:focus-visible .shot-caption{transform:translateY(-2px)}
 
 /* ============================================================
    rsvp
@@ -569,6 +597,8 @@ body::before{
 .footer{
   background:var(--cream-200);
   padding:clamp(3rem,7vw,5rem) var(--gutter);
+  /* clear the iOS home indicator */
+  padding-bottom:calc(clamp(3rem,7vw,5rem) + var(--safe-bottom));
   text-align:center;display:grid;gap:.9rem;justify-items:center;
 }
 .footer-script{
@@ -596,6 +626,9 @@ body::before{
   grid-template-columns:auto minmax(0,1fr) auto;
   gap:clamp(.5rem,2vw,1.5rem);
   padding:clamp(1rem,5vw,3rem);
+  /* keep the close button and photo clear of the notch / home indicator */
+  padding-top:calc(clamp(1rem,5vw,3rem) + var(--safe-top));
+  padding-bottom:calc(clamp(1rem,5vw,3rem) + var(--safe-bottom));
   background:color-mix(in srgb,var(--olive-900) 94%,transparent);
   backdrop-filter:blur(6px);
   animation:fade .3s var(--ease);
@@ -625,7 +658,11 @@ body::before{
 }
 .lightbox-close svg,.lightbox-nav svg{width:1.15rem;height:1.15rem;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .lightbox-close:hover,.lightbox-nav:hover{background:color-mix(in srgb,var(--cream-50) 18%,transparent);border-color:var(--sage-200)}
-.lightbox-close{position:absolute;top:clamp(1rem,3vw,2rem);right:clamp(1rem,3vw,2rem);z-index:2}
+.lightbox-close{
+  position:absolute;z-index:2;
+  top:calc(clamp(1rem,3vw,2rem) + var(--safe-top));
+  right:max(clamp(1rem,3vw,2rem),var(--safe-right));
+}
 .lightbox-nav--prev{grid-column:1}
 .lightbox-nav--next{grid-column:3}
 .lightbox-nav--prev:hover{transform:translateX(-3px)}
