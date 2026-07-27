@@ -1,126 +1,478 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f3eee7">
-  <meta name="description" content="Save the date for Vavea and Linas — 31 July 2027 in Vilnius, Lithuania.">
-  <meta property="og:title" content="Vavea & Linas — Save the Date">
-  <meta property="og:description" content="31 July 2027 · Vilnius, Lithuania">
-  <meta property="og:type" content="website">
-  <title>Vavea & Linas · 31 July 2027</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <script>document.documentElement.classList.add("js");</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Italiana&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f2e8">
+<title>Vavea &amp; Linas · 31 July 2027</title>
+<meta name="description" content="Vavea and Linas are getting married — 31st of July 2027, Vilnius, Lithuania. Save the date and share your address with us.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vavea &amp; Linas are getting married">
+<meta property="og:description" content="31st of July 2027 · Vilnius, Lithuania">
+<meta property="og:image" content="assets/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Pinyon+Script&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-  <a class="skip-link" href="#details">Skip to details</a>
 
-  <header class="hero" id="top">
-    <nav class="nav" aria-label="Main navigation">
-      <a class="monogram" href="#top" aria-label="Vavea and Linas, home">V <span>&</span> L</a>
-      <a class="nav-link" href="#address">Share your address</a>
-    </nav>
+<a class="skip-link" href="#story" data-i18n data-en="Skip to content" data-lt="Pereiti prie turinio" data-fr="Aller au contenu">Skip to content</a>
 
-    <div class="botanical botanical-left" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
-    <div class="botanical botanical-right" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
+<!-- ══════════════════════════════ NAV ══════════════════════════════ -->
+<header class="topbar" id="top">
+  <a class="monogram" href="#top" aria-label="Vavea &amp; Linas">V<span>&amp;</span>L</a>
 
-    <div class="hero-content">
-      <p class="eyebrow reveal">We are getting married</p>
-      <h1 class="names reveal"><span>Vavea</span><i>&</i><span>Linas</span></h1>
-      <div class="date-lockup reveal" aria-label="31 July 2027">
-        <span>31</span>
-        <span class="date-month">July</span>
-        <span>2027</span>
-      </div>
-      <p class="location reveal">Vilnius <span>·</span> Lithuania</p>
-      <a class="scroll-cue" href="#details" aria-label="Discover more">
-        <span>Save the date</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"/></svg>
-      </a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="#story"     data-i18n data-en="Our story" data-lt="Mūsų istorija" data-fr="Notre histoire">Our story</a>
+    <a href="#gallery"   data-i18n data-en="Gallery"   data-lt="Galerija"      data-fr="Galerie">Gallery</a>
+    <a href="#rsvp" class="topnav-cta" data-i18n data-en="Save the date" data-lt="Rezervuokite datą" data-fr="Réservez la date">Save the date</a>
+  </nav>
+
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+    <span aria-hidden="true">/</span>
+    <button type="button" data-lang="lt" aria-pressed="false">LT</button>
+    <span aria-hidden="true">/</span>
+    <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+  </div>
+</header>
+
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section class="hero" aria-labelledby="hero-names">
+
+  <!-- watercolour botanical corners -->
+  <svg class="botanical botanical--tl" viewBox="0 0 420 380" aria-hidden="true" focusable="false">
+    <use href="#branch-lush" />
+  </svg>
+  <svg class="botanical botanical--br" viewBox="0 0 420 380" aria-hidden="true" focusable="false">
+    <use href="#branch-lush" />
+  </svg>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow reveal" data-i18n data-en="Save the date" data-lt="Rezervuokite datą" data-fr="Réservez la date">Save the date</p>
+
+    <h1 class="hero-names reveal" id="hero-names">
+      <span class="n">Vavea</span><span class="amp">&amp;</span><span class="n">Linas</span>
+    </h1>
+
+    <p class="hero-kicker reveal" data-i18n data-en="are getting married" data-lt="tuokiasi" data-fr="se marient">are getting married</p>
+
+    <div class="hero-rule reveal" aria-hidden="true"><i></i><svg viewBox="0 0 24 24"><use href="#sprig"/></svg><i></i></div>
+
+    <p class="hero-date reveal">
+      <span class="hero-date-main" data-i18n data-en="31st of July 2027" data-lt="2027 m. liepos 31 d." data-fr="31 juillet 2027">31st of July 2027</span>
+      <span class="hero-date-sub" data-i18n data-en="Vilnius · Lithuania" data-lt="Vilnius · Lietuva" data-fr="Vilnius · Lituanie">Vilnius · Lithuania</span>
+    </p>
+
+    <a class="btn btn--outline reveal" href="#rsvp" data-i18n data-en="Share your address" data-lt="Pasidalinkite savo adresu" data-fr="Partagez votre adresse">Share your address</a>
+  </div>
+
+  <a class="scroll-hint" href="#countdown" aria-label="Scroll down">
+    <span data-i18n data-en="scroll" data-lt="žemiau" data-fr="défiler">scroll</span>
+    <i aria-hidden="true"></i>
+  </a>
+</section>
+
+
+<!-- ══════════════════════════════ COUNTDOWN ══════════════════════════════ -->
+<section class="countdown" id="countdown" aria-labelledby="countdown-title">
+  <p class="section-script" id="countdown-title" data-i18n data-en="until we say I do" data-lt="iki mūsų „taip“" data-fr="avant notre grand oui">until we say I do</p>
+
+  <ol class="clock" aria-live="off">
+    <li><strong data-clock="days">—</strong><span data-i18n data-en="Days" data-lt="Dienos" data-fr="Jours">Days</span></li>
+    <li><strong data-clock="hours">—</strong><span data-i18n data-en="Hours" data-lt="Valandos" data-fr="Heures">Hours</span></li>
+    <li><strong data-clock="minutes">—</strong><span data-i18n data-en="Minutes" data-lt="Minutės" data-fr="Minutes">Minutes</span></li>
+    <li><strong data-clock="seconds">—</strong><span data-i18n data-en="Seconds" data-lt="Sekundės" data-fr="Secondes">Seconds</span></li>
+  </ol>
+
+  <p class="clock-note" data-i18n
+     data-en="A full invitation with all the details will follow. For now — please keep the day free."
+     data-lt="Tikrasis pakvietimas su visomis detalėmis atkeliaus vėliau. Kol kas — tiesiog rezervuokite šią dieną."
+     data-fr="Une invitation complète avec tous les détails suivra. Pour l’instant — gardez simplement cette journée libre.">
+    A full invitation with all the details will follow. For now — please keep the day free.
+  </p>
+</section>
+
+
+<main>
+
+<!-- ══════════════════════════════ OUR STORY ══════════════════════════════ -->
+<section class="story" id="story" aria-labelledby="story-title">
+  <div class="story-grid">
+
+    <aside class="story-aside">
+      <h2 class="section-label reveal" id="story-title" data-i18n data-en="Our story" data-lt="Mūsų istorija" data-fr="Notre histoire">Our story</h2>
+      <figure class="story-figure reveal" aria-hidden="true">
+        <svg viewBox="0 0 260 320" focusable="false"><use href="#couple"/></svg>
+      </figure>
+    </aside>
+
+    <div class="story-body">
+      <p class="story-lede reveal" data-i18n
+         data-en="It all started in Finland in 2019."
+         data-lt="Viskas prasidėjo Suomijoje, 2019-aisiais."
+         data-fr="Tout a commencé en Finlande, en 2019.">
+        It all started in Finland in 2019.
+      </p>
+
+      <p class="reveal" data-i18n
+         data-en="Two Erasmus students, met in the middle of a snowy winter. What everyone thought would be nothing more than an “Erasmus romance” quickly became something much bigger."
+         data-lt="Du „Erasmus“ studentai susitiko pačiame snieguotos žiemos viduryje. Tai, ką visi laikė tik „Erasmus romanu“, labai greitai tapo kažkuo kur kas didesniu."
+         data-fr="Deux étudiants Erasmus se sont rencontrés au cœur d’un hiver enneigé. Ce que tout le monde prenait pour une simple « romance Erasmus » est très vite devenu quelque chose de bien plus grand.">
+        Two Erasmus students, met in the middle of a snowy winter. What everyone thought would be nothing more than an “Erasmus romance” quickly became something much bigger.
+      </p>
+
+      <p class="reveal" data-i18n
+         data-en="When the exchange ended, we returned to our respective countries, but our story didn’t. Every evening we called each other, sharing our days, our dreams, and counting down until we could be together again. Distance only made us stronger."
+         data-lt="Kai mainai baigėsi, grįžome kiekvienas į savo šalį — bet mūsų istorija nesibaigė. Kiekvieną vakarą kalbėdavomės telefonu, dalindavomės savo dienomis, svajonėmis ir skaičiuodavome dienas iki naujo susitikimo. Atstumas mus tik sustiprino."
+         data-fr="À la fin de l’échange, nous sommes rentrés chacun dans notre pays — mais pas notre histoire. Chaque soir, nous nous appelions, partagions nos journées, nos rêves, et comptions les jours jusqu’à nos retrouvailles. La distance n’a fait que nous rendre plus forts.">
+        When the exchange ended, we returned to our respective countries, but our story didn’t. Every evening we called each other, sharing our days, our dreams, and counting down until we could be together again. Distance only made us stronger.
+      </p>
+
+      <p class="reveal" data-i18n
+         data-en="Eventually, Vavea took the leap and moved to Lithuania, where our real adventure began. Together, we’ve built a life we’re incredibly proud of: our first apartment, a move to Vilnius, new careers, new adventures. Step by step, we created a place that feels like home."
+         data-lt="Galiausiai Vavea išdrįso ir persikėlė į Lietuvą — čia prasidėjo tikrasis nuotykis. Kartu sukūrėme gyvenimą, kuriuo be galo didžiuojamės: pirmasis bendras butas, kraustymasis į Vilnių, nauji darbai, nauji nuotykiai. Žingsnis po žingsnio sukūrėme vietą, kuri jaučiasi kaip namai."
+         data-fr="Finalement, Vavea a fait le grand saut et s’est installée en Lituanie : c’est là que notre véritable aventure a commencé. Ensemble, nous avons construit une vie dont nous sommes incroyablement fiers : notre premier appartement, un déménagement à Vilnius, de nouvelles carrières, de nouvelles aventures. Pas à pas, nous avons créé un endroit qui ressemble à un vrai chez-nous.">
+        Eventually, Vavea took the leap and moved to Lithuania, where our real adventure began. Together, we’ve built a life we’re incredibly proud of: our first apartment, a move to Vilnius, new careers, new adventures. Step by step, we created a place that feels like home.
+      </p>
+
+      <p class="reveal" data-i18n
+         data-en="Then came one of the happiest days of our lives: we got engaged on 12th of December. But that day became even more unforgettable… because our little puppy was born. She came home with us a couple of months after. Just like that, our family became three."
+         data-lt="Tada atėjo viena laimingiausių mūsų gyvenimo dienų: gruodžio 12-ąją susižiedavome. Ta diena tapo dar labiau neužmirštama… nes būtent tuomet gimė mūsų mažoji šuniukė. Po poros mėnesių ji atvyko namo su mumis. Taip mūsų šeimoje tapo trys."
+         data-fr="Puis est arrivé l’un des plus beaux jours de notre vie : nous nous sommes fiancés le 12 décembre. Et cette journée est devenue encore plus inoubliable… car c’est ce jour-là qu’est née notre petite chienne. Elle nous a rejoints quelques mois plus tard. Et voilà : notre famille est passée à trois.">
+        Then came one of the happiest days of our lives: we got engaged on 12th of December. But that day became even more unforgettable… because our little puppy was born. She came home with us a couple of months after. Just like that, our family became three.
+      </p>
+
+      <p class="story-accent reveal" data-i18n
+         data-en="And now, after all these years, we’re so excited for the next chapter."
+         data-lt="Ir dabar, po visų šių metų, mes nekantriai laukiame naujo skyriaus."
+         data-fr="Et aujourd’hui, après toutes ces années, nous attendons ce nouveau chapitre avec impatience.">
+        And now, after all these years, we’re so excited for the next chapter.
+      </p>
+
+      <p class="reveal" data-i18n
+         data-en="We can’t wait to celebrate our wedding with the people we love most. We’d love to tell you the rest of our story, so come and spend a few days with us. We promise there will be plenty of laughter, good food, unforgettable memories… and, of course, lots of cuddles from our one and only Poppy."
+         data-lt="Nekantriai laukiame savo vestuvių su žmonėmis, kuriuos labiausiai mylime. Likusią istorijos dalį norime papasakoti gyvai, todėl atvykite ir praleiskite su mumis kelias dienas. Pažadame — bus daug juoko, gero maisto, neužmirštamų prisiminimų… ir, žinoma, glamonių iš mūsų vienos ir vienintelės Poppy."
+         data-fr="Nous avons hâte de célébrer notre mariage avec les personnes que nous aimons le plus. Nous aimerions vous raconter la suite de notre histoire en personne, alors venez passer quelques jours avec nous. Nous vous promettons beaucoup de rires, de bons repas, des souvenirs inoubliables… et, bien sûr, plein de câlins de notre unique Poppy.">
+        We can’t wait to celebrate our wedding with the people we love most. We’d love to tell you the rest of our story, so come and spend a few days with us. We promise there will be plenty of laughter, good food, unforgettable memories… and, of course, lots of cuddles from our one and only Poppy.
+      </p>
+
+      <figure class="story-poppy reveal">
+        <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#poppy"/></svg>
+        <figcaption data-i18n data-en="Poppy — chief of cuddles" data-lt="Poppy — glamonių vadovė" data-fr="Poppy — chef des câlins">Poppy — chief of cuddles</figcaption>
+      </figure>
     </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ GALLERY ══════════════════════════════ -->
+<section class="gallery" id="gallery" aria-labelledby="gallery-title">
+  <header class="gallery-head">
+    <p class="section-script" data-i18n data-en="a few of our favourites" data-lt="keletas mūsų mylimiausių" data-fr="quelques-uns de nos préférés">a few of our favourites</p>
+    <h2 class="section-label" id="gallery-title" data-i18n data-en="Gallery" data-lt="Galerija" data-fr="Galerie">Gallery</h2>
   </header>
 
-  <main>
-    <section class="details section" id="details">
-      <div class="section-number" aria-hidden="true">01</div>
-      <div class="details-copy reveal">
-        <p class="eyebrow">A summer celebration</p>
-        <h2>Join us in<br><em>Vilnius</em></h2>
-      </div>
-      <div class="details-note reveal">
-        <p>We would be delighted to celebrate our wedding with the people we love most.</p>
-        <p>Please keep this summer Saturday free. A formal invitation with all the details will follow.</p>
-      </div>
-      <div class="city-card reveal" aria-label="Wedding location and date">
-        <div class="sun" aria-hidden="true"></div>
-        <div class="city-line" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <div class="city-card-copy">
-          <p>Saturday</p>
-          <strong>31 · 07 · 27</strong>
-          <p>Vilnius, Lithuania</p>
-        </div>
-      </div>
-    </section>
+  <!--
+    ─────────────────────────────────────────────────────────────
+    TO ADD YOUR REAL PHOTOS:
+    Drop the files into  assets/gallery/  and replace the src +
+    the data-en / data-lt caption on each figure below.
+    Recommended: ~1600px on the long edge, .jpg or .webp.
+    ─────────────────────────────────────────────────────────────
+  -->
+  <ul class="gallery-grid" id="gallery-grid">
+    <li class="gallery-item gallery-item--tall reveal">
+      <button type="button" class="shot" data-full="assets/gallery/photo-01.svg">
+        <img src="assets/gallery/photo-01.svg" alt="" loading="lazy" decoding="async">
+        <span class="shot-caption" data-i18n data-en="Where it began · Finland, 2019" data-lt="Kur viskas prasidėjo · Suomija, 2019" data-fr="Là où tout a commencé · Finlande, 2019">Where it began · Finland, 2019</span>
+      </button>
+    </li>
+    <li class="gallery-item reveal">
+      <button type="button" class="shot" data-full="assets/gallery/photo-02.svg">
+        <img src="assets/gallery/photo-02.svg" alt="" loading="lazy" decoding="async">
+        <span class="shot-caption" data-i18n data-en="Long-distance winters" data-lt="Žiemos per atstumą" data-fr="Hivers à distance">Long-distance winters</span>
+      </button>
+    </li>
+    <li class="gallery-item reveal">
+      <button type="button" class="shot" data-full="assets/gallery/photo-03.svg">
+        <img src="assets/gallery/photo-03.svg" alt="" loading="lazy" decoding="async">
+        <span class="shot-caption" data-i18n data-en="Our first apartment" data-lt="Pirmasis bendras butas" data-fr="Notre premier appartement">Our first apartment</span>
+      </button>
+    </li>
+    <li class="gallery-item gallery-item--wide reveal">
+      <button type="button" class="shot" data-full="assets/gallery/photo-04.svg">
+        <img src="assets/gallery/photo-04.svg" alt="" loading="lazy" decoding="async">
+        <span class="shot-caption" data-i18n data-en="Home is Vilnius" data-lt="Namai — Vilnius" data-fr="Notre chez-nous : Vilnius">Home is Vilnius</span>
+      </button>
+    </li>
+    <li class="gallery-item reveal">
+      <button type="button" class="shot" data-full="assets/gallery/photo-05.svg">
+        <img src="assets/gallery/photo-05.svg" alt="" loading="lazy" decoding="async">
+        <span class="shot-caption" data-i18n data-en="12th of December · she said yes" data-lt="Gruodžio 12-oji · ji pasakė „taip“" data-fr="12 décembre · elle a dit oui">12th of December · she said yes</span>
+      </button>
+    </li>
+    <li class="gallery-item gallery-item--tall reveal">
+      <button type="button" class="shot" data-full="assets/gallery/photo-06.svg">
+        <img src="assets/gallery/photo-06.svg" alt="" loading="lazy" decoding="async">
+        <span class="shot-caption" data-i18n data-en="And then there were three" data-lt="Ir tada mūsų buvo trys" data-fr="Et puis nous étions trois">And then there were three</span>
+      </button>
+    </li>
+    <li class="gallery-item reveal">
+      <button type="button" class="shot" data-full="assets/gallery/photo-07.svg">
+        <img src="assets/gallery/photo-07.svg" alt="" loading="lazy" decoding="async">
+        <span class="shot-caption" data-i18n data-en="Summers by the lakes" data-lt="Vasaros prie ežerų" data-fr="Étés au bord des lacs">Summers by the lakes</span>
+      </button>
+    </li>
+    <li class="gallery-item reveal">
+      <button type="button" class="shot" data-full="assets/gallery/photo-08.svg">
+        <img src="assets/gallery/photo-08.svg" alt="" loading="lazy" decoding="async">
+        <span class="shot-caption" data-i18n data-en="The next chapter" data-lt="Naujas skyrius" data-fr="Le prochain chapitre">The next chapter</span>
+      </button>
+    </li>
+  </ul>
+</section>
 
-    <section class="countdown section" aria-labelledby="countdown-title">
-      <p class="eyebrow reveal" id="countdown-title">Until we say “I do”</p>
-      <div class="countdown-grid reveal">
-        <div><strong id="days">—</strong><span>Days</span></div>
-        <div><strong id="hours">—</strong><span>Hours</span></div>
-        <div><strong id="minutes">—</strong><span>Minutes</span></div>
-        <div><strong id="seconds">—</strong><span>Seconds</span></div>
+
+<!-- ══════════════════════════════ RSVP / ADDRESS FORM ══════════════════════════════ -->
+<section class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
+  <svg class="botanical botanical--rsvp" viewBox="0 0 420 380" aria-hidden="true" focusable="false"><use href="#branch-lush"/></svg>
+
+  <div class="rsvp-inner">
+    <header class="rsvp-head">
+      <p class="section-script section-script--light" data-i18n data-en="where should we send the invitation?" data-lt="kur atsiųsti pakvietimą?" data-fr="où envoyer l’invitation ?">where should we send the invitation?</p>
+      <h2 class="section-label section-label--light" id="rsvp-title" data-i18n data-en="Save the date" data-lt="Rezervuokite datą" data-fr="Réservez la date">Save the date</h2>
+      <p class="rsvp-intro" data-i18n
+         data-en="Leave your name and postal address and a proper invitation will find its way to your letterbox."
+         data-lt="Palikite savo vardą ir pašto adresą — tikras pakvietimas atkeliaus tiesiai į jūsų paštą."
+         data-fr="Laissez-nous votre nom et votre adresse postale : une véritable invitation trouvera le chemin de votre boîte aux lettres.">
+        Leave your name and postal address and a proper invitation will find its way to your letterbox.
+      </p>
+    </header>
+
+    <form class="form" id="rsvp-form" novalidate>
+      <div class="field-row">
+        <p class="field">
+          <label for="f-first" data-i18n data-en="First name" data-lt="Vardas" data-fr="Prénom">First name</label>
+          <input id="f-first" name="firstName" type="text" required maxlength="80" autocomplete="given-name">
+        </p>
+        <p class="field">
+          <label for="f-last" data-i18n data-en="Last name" data-lt="Pavardė" data-fr="Nom">Last name</label>
+          <input id="f-last" name="lastName" type="text" required maxlength="80" autocomplete="family-name">
+        </p>
       </div>
-    </section>
 
-    <section class="address section" id="address">
-      <div class="form-intro reveal">
-        <div class="section-number" aria-hidden="true">02</div>
-        <p class="eyebrow">Invitation details</p>
-        <h2>Where should we<br><em>send the love?</em></h2>
-        <p>Share your postal address so we know where to send your formal invitation.</p>
-      </div>
+      <p class="field">
+        <label for="f-email" data-i18n data-en="Email address" data-lt="El. pašto adresas" data-fr="Adresse e-mail">Email address</label>
+        <input id="f-email" name="email" type="email" required maxlength="120" autocomplete="email" inputmode="email">
+      </p>
 
-      <form class="address-form reveal" id="address-form" action="#" data-endpoint="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <div class="form-row">
-          <div class="field">
-            <label for="first-name">First name</label>
-            <input id="first-name" name="firstName" type="text" autocomplete="given-name" required maxlength="80" placeholder="Vavea">
-          </div>
-          <div class="field">
-            <label for="surname">Surname</label>
-            <input id="surname" name="surname" type="text" autocomplete="family-name" required maxlength="80" placeholder="Surname">
-          </div>
+      <p class="field">
+        <label for="f-address" data-i18n data-en="Postal address (for the invitation)" data-lt="Pašto adresas (pakvietimui)" data-fr="Adresse postale (pour l’invitation)">Postal address (for the invitation)</label>
+        <textarea id="f-address" name="address" rows="4" required maxlength="400" autocomplete="street-address"
+          data-i18n-placeholder
+          data-en-placeholder="Street and number&#10;City, postal code&#10;Country"
+          data-lt-placeholder="Gatvė ir numeris&#10;Miestas, pašto kodas&#10;Šalis"
+          data-fr-placeholder="Rue et numéro&#10;Ville, code postal&#10;Pays"
+          placeholder="Street and number&#10;City, postal code&#10;Country"></textarea>
+      </p>
+
+      <fieldset class="field field--choice">
+        <legend data-i18n data-en="Do you think you’ll make it?" data-lt="Ar planuojate atvykti?" data-fr="Pensez-vous pouvoir venir ?">Do you think you’ll make it?</legend>
+        <div class="choices">
+          <label class="choice">
+            <input type="radio" name="attending" value="Yes" required>
+            <span data-i18n data-en="Yes, wouldn’t miss it" data-lt="Taip, tikrai būsiu" data-fr="Oui, pour rien au monde">Yes, wouldn’t miss it</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="attending" value="Not sure yet">
+            <span data-i18n data-en="Not sure yet" data-lt="Dar nežinau" data-fr="Encore incertain">Not sure yet</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="attending" value="No">
+            <span data-i18n data-en="Sadly can’t" data-lt="Deja, negalėsiu" data-fr="Malheureusement non">Sadly can’t</span>
+          </label>
         </div>
-        <div class="field">
-          <label for="address-line">Postal address</label>
-          <textarea id="address-line" name="address" autocomplete="street-address" required maxlength="500" rows="4" placeholder="Street and house number&#10;City and postal code&#10;Country"></textarea>
-        </div>
-        <input type="hidden" name="_subject" value="Wedding invitation address">
-        <button type="submit">
-          <span>Send my details</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
-        </button>
-        <p class="privacy-note">Your details will only be used to send your wedding invitation.</p>
-        <div class="form-message" id="form-message" role="status" aria-live="polite" tabindex="-1"></div>
-      </form>
-    </section>
-  </main>
+      </fieldset>
 
-  <footer>
-    <div class="footer-mark">V <span>&</span> L</div>
-    <p>See you in Vilnius</p>
-    <p class="footer-date">31 · 07 · 2027</p>
-  </footer>
+      <p class="field">
+        <label for="f-note">
+          <span data-i18n data-en="A note for us" data-lt="Žinutė mums" data-fr="Un petit mot pour nous">A note for us</span>
+          <em data-i18n data-en="optional" data-lt="nebūtina" data-fr="facultatif">optional</em>
+        </label>
+        <textarea id="f-note" name="note" rows="3" maxlength="600"></textarea>
+      </p>
+
+      <!-- spam trap: hidden from humans -->
+      <p class="honeypot" aria-hidden="true">
+        <label for="f-hp">Leave this empty</label>
+        <input id="f-hp" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+      </p>
+
+      <button class="btn btn--solid" type="submit" data-submit>
+        <span data-i18n data-en="Send my address" data-lt="Siųsti adresą" data-fr="Envoyer mon adresse">Send my address</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>
+      </button>
+
+      <p class="form-privacy" data-i18n
+         data-en="We’ll only use this to post your invitation. Nothing else, we promise."
+         data-lt="Šiuos duomenis naudosime tik pakvietimui išsiųsti. Nieko daugiau, pažadame."
+         data-fr="Nous n’utiliserons ces informations que pour vous envoyer votre invitation. Rien d’autre, promis.">
+        We’ll only use this to post your invitation. Nothing else, we promise.
+      </p>
+
+      <p class="form-status" id="form-status" role="status" aria-live="polite" tabindex="-1"></p>
+    </form>
+  </div>
+</section>
+
+
+</main>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer class="footer">
+  <p class="footer-script">Vavea &amp; Linas</p>
+  <p class="footer-date">
+    <span>31 · 07 · 2027</span>
+    <span data-i18n data-en="Vilnius, Lithuania" data-lt="Vilnius, Lietuva" data-fr="Vilnius, Lituanie">Vilnius, Lithuania</span>
+  </p>
+  <svg class="footer-sprig" viewBox="0 0 24 24" aria-hidden="true"><use href="#sprig"/></svg>
+</footer>
+
+
+<!-- ══════════════════════════════ LIGHTBOX ══════════════════════════════ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo" hidden>
+  <button class="lightbox-close" type="button" data-lb-close aria-label="Close">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <button class="lightbox-nav lightbox-nav--prev" type="button" data-lb-prev aria-label="Previous">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <figure class="lightbox-figure">
+    <img id="lightbox-img" src="" alt="">
+    <figcaption id="lightbox-cap"></figcaption>
+  </figure>
+  <button class="lightbox-nav lightbox-nav--next" type="button" data-lb-next aria-label="Next">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+</div>
+
+
+<!-- ══════════════════════════════ SVG SPRITE ══════════════════════════════ -->
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute">
+  <defs>
+
+    <!-- small sprig used as a divider -->
+    <g id="sprig">
+      <path d="M12 3v18" fill="none" stroke="currentColor" stroke-width=".9" stroke-linecap="round"/>
+      <path d="M12 7c-2.4-.2-3.6-1-4.2-2.4C9.4 4.3 11 5 12 7Zm0 0c2.4-.2 3.6-1 4.2-2.4C14.6 4.3 13 5 12 7Zm0 5c-2.4-.2-3.6-1-4.2-2.4C9.4 9.3 11 10 12 12Zm0 0c2.4-.2 3.6-1 4.2-2.4C14.6 9.3 13 10 12 12Zm0 5c-2.4-.2-3.6-1-4.2-2.4C9.4 14.3 11 15 12 17Zm0 0c2.4-.2 3.6-1 4.2-2.4C14.6 14.3 13 15 12 17Z"
+            fill="currentColor" opacity=".85"/>
+    </g>
+
+    <!-- lush watercolour-ish branch cluster for the corners -->
+    <g id="branch-lush">
+      <g class="bl-stem">
+        <path d="M8 6C70 44 132 96 188 168c28 36 48 74 60 112"/>
+        <path d="M8 6C58 68 96 122 120 186"/>
+        <path d="M40 4c46 62 96 108 156 140"/>
+      </g>
+      <g class="bl-leaf bl-leaf--olive">
+        <ellipse cx="46" cy="42"   rx="19" ry="10" transform="rotate(-28 46 42)"/>
+        <ellipse cx="84" cy="76"   rx="21" ry="11" transform="rotate(-22 84 76)"/>
+        <ellipse cx="124" cy="114" rx="23" ry="12" transform="rotate(-18 124 114)"/>
+        <ellipse cx="168" cy="156" rx="21" ry="11" transform="rotate(-14 168 156)"/>
+        <ellipse cx="206" cy="204" rx="18" ry="10" transform="rotate(-8 206 204)"/>
+        <ellipse cx="30" cy="96"   rx="17" ry="9"  transform="rotate(36 30 96)"/>
+        <ellipse cx="60" cy="140"  rx="19" ry="10" transform="rotate(30 60 140)"/>
+        <ellipse cx="92" cy="186"  rx="17" ry="9"  transform="rotate(24 92 186)"/>
+      </g>
+      <g class="bl-leaf bl-leaf--sage">
+        <ellipse cx="104" cy="34"  rx="22" ry="9"  transform="rotate(14 104 34)"/>
+        <ellipse cx="150" cy="66"  rx="24" ry="10" transform="rotate(18 150 66)"/>
+        <ellipse cx="196" cy="102" rx="22" ry="9"  transform="rotate(22 196 102)"/>
+        <ellipse cx="236" cy="142" rx="19" ry="8"  transform="rotate(26 236 142)"/>
+        <ellipse cx="14" cy="58"   rx="16" ry="8"  transform="rotate(-58 14 58)"/>
+      </g>
+      <g class="bl-leaf bl-leaf--wine">
+        <ellipse cx="66" cy="18"   rx="14" ry="7"  transform="rotate(-46 66 18)"/>
+        <ellipse cx="118" cy="152" rx="15" ry="7"  transform="rotate(48 118 152)"/>
+        <ellipse cx="176" cy="118" rx="13" ry="6"  transform="rotate(-40 176 118)"/>
+        <ellipse cx="150" cy="216" rx="14" ry="7"  transform="rotate(40 150 216)"/>
+        <ellipse cx="238" cy="196" rx="12" ry="6"  transform="rotate(-32 238 196)"/>
+      </g>
+      <g class="bl-berry">
+        <circle cx="196" cy="176" r="4"/>
+        <circle cx="210" cy="188" r="3"/>
+        <circle cx="128" cy="76"  r="3.4"/>
+        <circle cx="72"  cy="112" r="3"/>
+      </g>
+    </g>
+
+    <!-- line-art couple -->
+    <g id="couple">
+      <g class="ca-frame">
+        <path d="M14 96h40M14 96v54M200 74h46M246 74v58"/>
+      </g>
+      <g class="ca-line">
+        <!-- her -->
+        <path d="M104 86c0-16 11-27 25-27s25 11 25 27c0 18-11 30-25 30s-25-12-25-30Z"/>
+        <path d="M100 84c2-22 12-33 29-33s27 11 29 32c1 9-2 12-4 6-3-9-9-14-25-14-13 0-22 5-25 13-2 6-5 3-4-4Z"/>
+        <path d="M129 116v18M96 156c4-16 15-24 33-24s29 8 33 24l10 128"/>
+        <path d="M96 156 84 284M162 284H84"/>
+        <!-- his -->
+        <path d="M60 92c0-15 10-25 23-25s23 10 23 25-10 27-23 27-23-12-23-27Z"/>
+        <path d="M58 88c3-18 12-27 25-27s23 9 26 26c1 6-3 7-5 2-3-8-9-12-21-12s-19 4-22 12c-2 5-4 4-3-1Z"/>
+        <path d="M83 119v16M52 158c5-15 16-23 31-23s26 8 31 23"/>
+        <path d="M52 158 44 284M114 158l6 126"/>
+        <!-- arms + cups -->
+        <path d="M52 166c-8 20-9 42-4 62 3 11 12 16 22 12"/>
+        <path d="M162 168c9 20 10 42 5 62-3 11-12 16-22 12"/>
+        <rect x="58" y="196" width="26" height="34" rx="4"/>
+        <path d="M84 204h9a7 7 0 0 1 0 14h-9"/>
+        <rect x="140" y="196" width="26" height="34" rx="4"/>
+        <path d="M140 204h-9a7 7 0 0 0 0 14h9"/>
+      </g>
+      <g class="ca-fill">
+        <path d="M129 141c5-9 18-8 18 2 0 8-10 14-18 20-8-6-18-12-18-20 0-10 13-11 18-2Z"/>
+      </g>
+    </g>
+
+    <!-- Poppy, the dalmatian -->
+    <g id="poppy">
+      <g class="pp-line">
+        <path d="M96 176c-14 0-22-8-22-22 0-18 6-32 6-48 0-14-6-22-6-34 0-16 10-26 26-26 12 0 20 6 26 16 6 10 16 14 26 14"/>
+        <path d="M100 46c-8-6-12-14-10-24 8 2 14 8 16 16"/>
+        <path d="M152 46c10 0 18 8 18 18 0 8-4 14-10 17"/>
+        <path d="M152 46c-8-4-14-2-18 6"/>
+        <path d="M170 64c6 2 10 6 12 12-6 2-11 1-15-3"/>
+        <circle cx="163" cy="60" r="2.6" fill="currentColor" stroke="none"/>
+        <path d="M96 176h36M74 176h10"/>
+        <path d="M108 132c10 6 22 6 32 0"/>
+      </g>
+      <g class="pp-dots">
+        <circle cx="92" cy="70" r="5"/><circle cx="112" cy="92" r="4"/>
+        <circle cx="88" cy="106" r="6"/><circle cx="110" cy="124" r="4.5"/>
+        <circle cx="86" cy="140" r="4"/><circle cx="106" cy="58" r="3.5"/>
+        <circle cx="126" cy="76" r="3"/>
+      </g>
+      <g class="pp-grass">
+        <path d="M52 176c2-14 6-24 12-30-2 12-4 22-4 30M62 176c4-10 10-17 18-20-6 8-10 14-12 20"/>
+        <path d="M148 176c2-12 6-20 12-26-2 10-4 18-4 26M158 176c4-8 9-14 16-16-5 6-9 11-11 16"/>
+      </g>
+    </g>
+
+  </defs>
+</svg>
+
+<script src="js/app.js" defer></script>
 </body>
 </html>
