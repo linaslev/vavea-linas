@@ -14,7 +14,7 @@
     // Paste your Google Apps Script Web App URL here.
     // See README.md → "Collecting the answers" for the 5-minute setup.
     // Leave as '' while developing: the form will run in demo mode.
-    endpoint: 'https://script.google.com/macros/s/AKfycbyZVW7dJGLdOBcp6jfVHB-1RbUweCSRtuANd9CidBWe2SvelaictxyXMwyBnD1Upo_IpQ/exec'
+    endpoint: 'https://script.google.com/macros/s/AKfycbwwlHPWbNLq4D4qC-I1PywBmc4WKvpNFWZDMRZDkSgN4WtshULoBTo4VYcbCjzuyAN8QQ/exec'
   };
   /* ════════════════════════════════════════════════════════ */
 
@@ -272,7 +272,7 @@
       clearErrors();
       var bad = null;
 
-      ['#f-first', '#f-last', '#f-address'].forEach(function (sel) {
+      ['#f-name', '#f-address'].forEach(function (sel) {
         var el = $(sel, form);
         if (!el.value.trim()) { addError(el, t('required')); bad = bad || el; }
       });
@@ -315,8 +315,7 @@
       if (!validate()) return;
 
       var data = {
-        firstName: $('#f-first', form).value.trim(),
-        lastName:  $('#f-last', form).value.trim(),
+        name:      $('#f-name', form).value.trim(),
         email:     $('#f-email', form).value.trim(),
         address:   $('#f-address', form).value.trim(),
         attending: ($('input[name="attending"]:checked', form) || {}).value || '',

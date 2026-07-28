@@ -490,16 +490,15 @@ body::before{
 
 /* ---------- form ---------- */
 .form{display:grid;gap:clamp(1.4rem,3.5vw,2rem)}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,3vw,1.75rem)}
-@media (max-width:560px){.field-row{grid-template-columns:1fr}}
 
 .field{display:grid;gap:.55rem;margin:0;border:0;min-width:0}
 .field label,.field legend{
-  font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--sage-300);
+  font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:600;
+  color:var(--cream-50);
   display:flex;align-items:baseline;gap:.6em;
 }
-.field label em{font-style:normal;letter-spacing:.14em;text-transform:none;font-size:.9em;color:color-mix(in srgb,var(--sage-300) 62%,transparent)}
+.field label em{font-style:normal;letter-spacing:.1em;text-transform:none;font-size:.92em;font-weight:400;color:color-mix(in srgb,var(--cream-100) 78%,transparent)}
 
 .field input[type=text],
 .field input[type=email],
@@ -507,24 +506,26 @@ body::before{
   width:100%;
   font:inherit;font-size:1.02rem;
   color:var(--cream-50);
-  background:color-mix(in srgb,var(--cream-50) 6%,transparent);
-  border:0;border-bottom:1px solid color-mix(in srgb,var(--sage-300) 42%,transparent);
-  border-radius:var(--radius) var(--radius) 0 0;
+  background:color-mix(in srgb,var(--olive-900) 55%,transparent);
+  border:1px solid color-mix(in srgb,var(--sage-200) 45%,transparent);
+  border-bottom-width:2px;border-bottom-color:color-mix(in srgb,var(--sage-200) 65%,transparent);
+  border-radius:var(--radius);
   padding:.85em .9em;
   transition:border-color .35s var(--ease),background .35s var(--ease);
   resize:vertical;
 }
 .field textarea{line-height:1.7;min-height:5.5em}
-.field input::placeholder,.field textarea::placeholder{color:color-mix(in srgb,var(--sage-300) 48%,transparent)}
-.field input:hover,.field textarea:hover{background:color-mix(in srgb,var(--cream-50) 10%,transparent)}
+.field input::placeholder,.field textarea::placeholder{color:color-mix(in srgb,var(--cream-100) 60%,transparent)}
+.field input:hover,.field textarea:hover{background:color-mix(in srgb,var(--olive-900) 68%,transparent);border-color:color-mix(in srgb,var(--sage-200) 60%,transparent)}
 .field input:focus,.field textarea:focus{
   outline:0;
-  background:color-mix(in srgb,var(--cream-50) 13%,transparent);
-  border-bottom-color:var(--sage-200);
+  background:color-mix(in srgb,var(--olive-900) 72%,transparent);
+  border-color:var(--sage-200);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--sage-200) 25%,transparent);
 }
-.field.has-error input,.field.has-error textarea{border-bottom-color:#e2919b}
+.field.has-error input,.field.has-error textarea{border-color:#e2919b}
 .field-error{
-  font-size:.74rem;letter-spacing:.06em;color:#eaa8b0;margin:0;
+  font-size:.78rem;letter-spacing:.04em;font-weight:600;color:#f4c3c9;margin:0;
 }
 
 /* radios */
@@ -534,13 +535,14 @@ body::before{
 .choice input{position:absolute;opacity:0;width:0;height:0}
 .choice span{
   display:inline-block;
-  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
   padding:.85em 1.4em;
-  color:color-mix(in srgb,var(--cream-100) 76%,transparent);
-  border:1px solid color-mix(in srgb,var(--sage-300) 34%,transparent);
+  color:var(--cream-50);
+  background:color-mix(in srgb,var(--olive-900) 45%,transparent);
+  border:1px solid color-mix(in srgb,var(--sage-200) 50%,transparent);
   transition:all .35s var(--ease);
 }
-.choice:hover span{border-color:var(--sage-200);color:var(--cream-50)}
+.choice:hover span{border-color:var(--sage-200);color:var(--cream-50);background:color-mix(in srgb,var(--olive-900) 60%,transparent)}
 .choice input:checked + span{
   background:var(--sage-200);border-color:var(--sage-200);color:var(--olive-900);
 }
@@ -553,7 +555,7 @@ body::before{
 
 .form-privacy{
   font-size:.78rem;line-height:1.7;
-  color:color-mix(in srgb,var(--cream-100) 58%,transparent);
+  color:color-mix(in srgb,var(--cream-100) 78%,transparent);
   max-width:30rem;
 }
 .form-status{margin:0;font-size:.92rem;line-height:1.7;min-height:1.2em}

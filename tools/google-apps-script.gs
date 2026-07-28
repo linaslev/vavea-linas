@@ -10,8 +10,7 @@ var NOTIFY_EMAIL = '';
 
 var HEADERS = [
   'Submitted at',
-  'First name',
-  'Last name',
+  'Name(s)',
   'Email',
   'Postal address',
   'Attending',
@@ -29,7 +28,7 @@ function doPost(e) {
     var data = JSON.parse(e.postData.contents);
 
     // very light validation
-    if (!data.firstName || !data.lastName || !data.address) {
+    if (!data.name || !data.address) {
       return json({ ok: false, error: 'missing required fields' });
     }
 
@@ -37,8 +36,7 @@ function doPost(e) {
 
     sheet.appendRow([
       new Date(),
-      String(data.firstName || '').slice(0, 100),
-      String(data.lastName  || '').slice(0, 100),
+      String(data.name      || '').slice(0, 160),
       String(data.email     || '').slice(0, 150),
       String(data.address   || '').slice(0, 500),
       String(data.attending || '').slice(0, 50),
@@ -90,22 +88,21 @@ function getSheet() {
          .setFontColor('#f7f2e8');
     sheet.setFrozenRows(1);
     sheet.setColumnWidth(1, 150); // submitted at
-    sheet.setColumnWidth(2, 120);
-    sheet.setColumnWidth(3, 120);
-    sheet.setColumnWidth(4, 210);
-    sheet.setColumnWidth(5, 280); // address
-    sheet.setColumnWidth(6, 130);
-    sheet.setColumnWidth(7, 320); // note
-    sheet.setColumnWidth(8, 80);
+    sheet.setColumnWidth(2, 200); // name(s)
+    sheet.setColumnWidth(3, 210); // email
+    sheet.setColumnWidth(4, 280); // address
+    sheet.setColumnWidth(5, 130); // attending
+    sheet.setColumnWidth(6, 320); // note
+    sheet.setColumnWidth(7, 80);  // language
   }
 
   return sheet;
 }
 
 function notify(data) {
-  var subject = '💌 New save-the-date reply: ' + data.firstName + ' ' + data.lastName;
+  var subject = '💌 New save-the-date reply: ' + data.name;
   var body =
-    data.firstName + ' ' + data.lastName + '\n' +
+    data.name + '\n' +
     (data.email || '—') + '\n\n' +
     'Attending: ' + (data.attending || '—') + '\n\n' +
     'Address:\n' + (data.address || '—') + '\n\n' +
@@ -124,8 +121,7 @@ function json(obj) {
 /* ── run this once from the editor to test without the website ─── */
 function testAppend() {
   doPost({ postData: { contents: JSON.stringify({
-    firstName: 'Test',
-    lastName:  'Guest',
+    name:      'Test Guest & Plus One',
     email:     'test@example.com',
     address:   'Gedimino pr. 1\n01103 Vilnius\nLithuania',
     attending: 'Yes',

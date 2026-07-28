@@ -252,16 +252,18 @@
     </header>
 
     <form class="form" id="rsvp-form" novalidate>
-      <div class="field-row">
-        <p class="field">
-          <label for="f-first" data-i18n data-en="First name" data-lt="Vardas" data-fr="Prénom">First name</label>
-          <input id="f-first" name="firstName" type="text" required maxlength="80" autocomplete="given-name">
-        </p>
-        <p class="field">
-          <label for="f-last" data-i18n data-en="Last name" data-lt="Pavardė" data-fr="Nom">Last name</label>
-          <input id="f-last" name="lastName" type="text" required maxlength="80" autocomplete="family-name">
-        </p>
-      </div>
+      <p class="field">
+        <label for="f-name">
+          <span data-i18n data-en="Your name(s)" data-lt="Jūsų vardas(-ai)" data-fr="Votre nom">Your name(s)</span>
+          <em data-i18n data-en="just you, or you + your +1" data-lt="vienas arba abu, jei atvyksite kartu" data-fr="vous seul·e, ou vous deux si vous venez en couple">just you, or you + your +1</em>
+        </label>
+        <input id="f-name" name="name" type="text" required maxlength="160" autocomplete="name"
+          data-i18n-placeholder
+          data-en-placeholder="e.g. Jane Doe & John Smith"
+          data-lt-placeholder="pvz., Jonas Jonaitis ir Ona Onaitienė"
+          data-fr-placeholder="ex. : Jeanne Dupont & Jean Martin"
+          placeholder="e.g. Jane Doe & John Smith">
+      </p>
 
       <p class="field">
         <label for="f-email" data-i18n data-en="Email address" data-lt="El. pašto adresas" data-fr="Adresse e-mail">Email address</label>
