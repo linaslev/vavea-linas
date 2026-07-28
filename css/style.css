@@ -168,7 +168,7 @@ body::before{
 .botanical--br{bottom:-8%;right:-7%;transform:rotate(184deg)}
 
 /* ============================================================
-   top bar
+   top bar — monogram + language switcher (no nav, the page just scrolls)
    ============================================================ */
 .topbar{
   position:fixed;inset:0 0 auto 0;z-index:100;
@@ -196,23 +196,6 @@ body::before{
 }
 .monogram span{font-family:var(--f-script);font-size:1.35em;letter-spacing:0;color:var(--wine-600);transform:translateY(.06em)}
 
-.topnav{display:flex;align-items:center;gap:clamp(1rem,3vw,2.4rem)}
-.topnav a{
-  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
-  text-decoration:none;color:var(--ink-soft);
-  padding-block:.35em;position:relative;
-}
-.topnav a::after{
-  content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
-  background:var(--wine-600);transform:scaleX(0);transform-origin:left;
-  transition:transform .4s var(--ease);
-}
-.topnav a:hover{color:var(--wine-700)}
-.topnav a:hover::after{transform:scaleX(1)}
-.topnav-cta{color:var(--olive-800)!important;border:1px solid var(--sage-300);padding:.55em 1.1em!important;white-space:nowrap}
-.topnav-cta::after{display:none}
-.topnav-cta:hover{background:var(--olive-800);color:var(--cream-50)!important;border-color:var(--olive-800)}
-
 .lang{display:flex;align-items:center;gap:.35em;font-size:.7rem;letter-spacing:.14em;color:var(--ink-faint)}
 .lang button{
   background:none;border:0;padding:.3em .1em;cursor:pointer;
@@ -222,17 +205,12 @@ body::before{
 .lang button:hover{color:var(--wine-600)}
 .lang button.is-active{color:var(--olive-800);font-weight:500;text-decoration:underline;text-underline-offset:4px}
 
-@media (max-width:640px){
-  .topnav a:not(.topnav-cta){display:none}
-}
-/* very narrow phones (iPhone SE 1st gen): tighten so the bar never overflows */
 @media (max-width:360px){
   .topbar{
     gap:.5rem;
     padding-left:max(.75rem,var(--safe-left));
     padding-right:max(.75rem,var(--safe-right));
   }
-  .topnav-cta{padding:.5em .7em!important;font-size:.62rem}
   .lang{font-size:.62rem;gap:.25em}
 }
 
@@ -254,11 +232,6 @@ body::before{
 }
 .hero-inner{position:relative;z-index:2;max-width:min(100%,54rem)}
 
-.hero-eyebrow{
-  font-size:.74rem;letter-spacing:.42em;text-transform:uppercase;
-  color:var(--olive-600);margin-bottom:clamp(1.4rem,4vw,2.6rem);
-}
-
 .hero-names{
   font-family:var(--f-script);
   font-weight:400;
@@ -268,8 +241,7 @@ body::before{
   display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;
   gap:0 clamp(.5rem,2.2vw,1.4rem);
 }
-/* same Pinyon Script ampersand as the nav monogram and the footer,
-   just kept green */
+/* same Pinyon Script ampersand as the footer, just kept green */
 .hero-names .amp{
   font-family:var(--f-script);font-style:normal;font-weight:400;
   font-size:.58em;color:var(--olive-600);
@@ -690,12 +662,12 @@ body.lb-open{overflow:hidden}
 }
 
 /* stagger the hero + grids a touch */
+/* names, kicker, rule, date, button */
 .hero-inner .reveal:nth-child(1){transition-delay:.05s}
-.hero-inner .reveal:nth-child(2){transition-delay:.18s}
-.hero-inner .reveal:nth-child(3){transition-delay:.31s}
-.hero-inner .reveal:nth-child(4){transition-delay:.42s}
-.hero-inner .reveal:nth-child(5){transition-delay:.52s}
-.hero-inner .reveal:nth-child(6){transition-delay:.62s}
+.hero-inner .reveal:nth-child(2){transition-delay:.2s}
+.hero-inner .reveal:nth-child(3){transition-delay:.34s}
+.hero-inner .reveal:nth-child(4){transition-delay:.46s}
+.hero-inner .reveal:nth-child(5){transition-delay:.58s}
 .gallery-item:nth-child(2n){transition-delay:.08s}
 .gallery-item:nth-child(3n){transition-delay:.16s}
 

@@ -14,7 +14,7 @@
     // Paste your Google Apps Script Web App URL here.
     // See README.md → "Collecting the answers" for the 5-minute setup.
     // Leave as '' while developing: the form will run in demo mode.
-    endpoint: ''
+    endpoint: 'https://script.google.com/macros/s/AKfycbyZVW7dJGLdOBcp6jfVHB-1RbUweCSRtuANd9CidBWe2SvelaictxyXMwyBnD1Upo_IpQ/exec'
   };
   /* ════════════════════════════════════════════════════════ */
 
