@@ -337,13 +337,13 @@
       <h3 class="thankyou-title" data-i18n
           data-en="Your address is safely with us"
           data-lt="Jūsų adresas jau saugiai pas mus"
-          data-fr="Votre adresse est bien arrivée">
+          data-fr="Nous avons bien reçu votre adresse.">
         Your address is safely with us
       </h3>
       <p class="thankyou-text" data-i18n
          data-en="A proper invitation will find its way to your letterbox closer to the day. Until then, pencil us in — 31st of July 2027, Vilnius."
          data-lt="Artėjant šventei tikras pakvietimas atkeliaus tiesiai į jūsų paštą. O kol kas — pasižymėkite datą: 2027 m. liepos 31 d., Vilnius."
-         data-fr="Une véritable invitation trouvera le chemin de votre boîte aux lettres à l’approche du grand jour. D’ici là, notez la date : 31 juillet 2027, Vilnius.">
+         data-fr="Votre invitation papier vous sera envoyée à l’approche du grand jour. D’ici là, réservez la date : 31 juillet 2027, à Vilnius.">
         A proper invitation will find its way to your letterbox closer to the day. Until then, pencil us in — 31st of July 2027, Vilnius.
       </p>
 
@@ -356,13 +356,30 @@
         Add the date to your calendar
       </p>
       <div class="thankyou-actions">
-        <a class="btn btn--solid" id="cal-google" href="#" target="_blank" rel="noopener">
+        <!-- real .ics file (not a blob:) so in-app browsers hand it to the OS -->
+        <a class="btn btn--solid" id="cal-ics" href="assets/calendar/vavea-linas-en.ics" type="text/calendar">
+          <span data-i18n data-en="Apple / Outlook" data-lt="Apple / Outlook" data-fr="Apple / Outlook">Apple / Outlook</span>
+        </a>
+        <a class="btn btn--light" id="cal-google" href="#" target="_blank" rel="noopener">
           <span data-i18n data-en="Google Calendar" data-lt="Google kalendorius" data-fr="Google Calendar">Google Calendar</span>
         </a>
-        <a class="btn btn--light" id="cal-ics" href="#" download="vavea-linas-2027-07-31.ics">
-          <span data-i18n data-en="Apple / Outlook (.ics)" data-lt="Apple / Outlook (.ics)" data-fr="Apple / Outlook (.ics)">Apple / Outlook (.ics)</span>
-        </a>
       </div>
+
+      <!-- shown only inside Messenger/Instagram/etc., where calendar hand-off is unreliable -->
+      <p class="thankyou-inapp" id="cal-inapp" hidden>
+        <span data-i18n
+              data-en="Buttons misbehaving? This page is open inside another app."
+              data-lt="Mygtukai neveikia? Ši svetainė atidaryta kitos programos viduje."
+              data-fr="Les boutons ne fonctionnent pas ? Cette page est ouverte dans une autre application.">
+          Buttons misbehaving? This page is open inside another app.
+        </span>
+        <button class="thankyou-copy" type="button" id="cal-copy" data-i18n
+                data-en="Copy the link and open it in your browser"
+                data-lt="Nukopijuokite nuorodą ir atidarykite ją savo naršyklėje"
+                data-fr="Copiez le lien et ouvrez-le dans votre navigateur">
+          Copy the link and open it in your browser
+        </button>
+      </p>
     </div>
   </div>
 </section>

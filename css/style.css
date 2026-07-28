@@ -682,6 +682,25 @@ body::before{
   margin-top:.55rem;
 }
 .thankyou-actions .btn{padding:.95em 1.7em;font-size:.72rem}
+
+/* only visible inside Messenger/Instagram/… webviews */
+.thankyou-inapp{
+  margin:1.4rem 0 0;max-width:34ch;
+  display:grid;gap:.5rem;justify-items:center;
+  font-size:.8rem;line-height:1.65;
+  color:color-mix(in srgb,var(--cream-100) 66%,transparent);
+}
+.thankyou-inapp[hidden]{display:none}
+.thankyou-copy{
+  font:inherit;font-weight:600;
+  color:var(--sage-200);
+  background:none;border:0;padding:.2em 0;
+  border-bottom:1px solid color-mix(in srgb,var(--sage-200) 45%,transparent);
+  cursor:pointer;
+  transition:color .3s var(--ease),border-color .3s var(--ease);
+}
+.thankyou-copy:hover{color:var(--cream-50);border-color:var(--cream-50)}
+.thankyou-copy.is-done{color:var(--cream-50);border-color:transparent}
 @media (max-width:420px){
   .thankyou-actions{flex-direction:column;align-self:stretch}
   .thankyou-actions .btn{justify-content:center}

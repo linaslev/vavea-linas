@@ -192,10 +192,31 @@ Then in the repo: **Settings → Pages → Source: Deploy from a branch →
 
 **Netlify / Cloudflare Pages:** drag the folder onto their dashboard, or
 connect the repo and leave the build command empty with the publish
-directory set to `/`.
+directory set to `/`. The included `_headers` file makes them serve the
+`.ics` files as `text/calendar` — see below.
 
-**Custom domain:** add it in your host's dashboard, then update the
-`hello@vavea-linas.lt` address in the footer of `index.html`.
+**Custom domain:** add it in your host's dashboard.
+
+### Add-to-calendar files
+
+The "Apple / Outlook" button links to a real file in
+`assets/calendar/` (one per language). They're committed to the repo, so
+there's nothing to do at deploy time — but if you change the date or the
+event wording, regenerate them:
+
+```bash
+node tools/make-ics.mjs
+```
+
+Keep `DAY` / `TEXT` in that script in sync with `CONFIG.weddingDay` and the
+`calTitle` / `calWhere` / `calNote` strings in `js/app.js`.
+
+> **Why files and not generated in the browser?** In-app browsers (Messenger,
+> Instagram, Facebook) ignore the `download` attribute and won't hand a
+> `blob:` URL to the operating system, so guests saw the raw text of the
+> file. A normal URL served as `text/calendar` gets passed to the Calendar
+> app instead. On GitHub Pages this works out of the box; on
+> Netlify/Cloudflare the `_headers` file takes care of it.
 
 ---
 

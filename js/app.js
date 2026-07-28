@@ -42,7 +42,8 @@
       close:    'Close', prev: 'Previous', next: 'Next', photo: 'Photo',
       calTitle: 'Vavea & Linas — Wedding',
       calWhere: 'Vilnius, Lithuania',
-      calNote:  'Vavea and Linas are getting married. A proper invitation with all the details will follow.'
+      calNote:  'Vavea and Linas are getting married. A proper invitation with all the details will follow.',
+      copied:   'Link copied — now paste it in Safari or Chrome'
     },
     lt: {
       sending:  'Siunčiama…',
@@ -54,7 +55,8 @@
       close:    'Uždaryti', prev: 'Ankstesnė', next: 'Kita', photo: 'Nuotrauka',
       calTitle: 'Vavea ir Linas — Vestuvės',
       calWhere: 'Vilnius, Lietuva',
-      calNote:  'Vavea ir Linas tuokiasi. Tikras pakvietimas su visa informacija atkeliaus vėliau.'
+      calNote:  'Vavea ir Linas tuokiasi. Tikras pakvietimas su visa informacija atkeliaus vėliau.',
+      copied:   'Nuoroda nukopijuota — įklijuokite ją Safari ar Chrome'
     },
     fr: {
       sending:  'Envoi en cours…',
@@ -66,7 +68,8 @@
       close:    'Fermer', prev: 'Précédente', next: 'Suivante', photo: 'Photo',
       calTitle: 'Vavea & Linas — Mariage',
       calWhere: 'Vilnius, Lituanie',
-      calNote:  'Vavea et Linas se marient. Une véritable invitation avec tous les détails suivra.'
+      calNote:  'Vavea et Linas se marient. Une véritable invitation avec tous les détails suivra.',
+      copied:   'Lien copié — collez-le dans Safari ou Chrome'
     }
   };
 
@@ -267,15 +270,14 @@
     return d.getUTCFullYear() + pad2(d.getUTCMonth() + 1) + pad2(d.getUTCDate());
   }
 
-  // UTC timestamp → YYYYMMDDTHHMMSSZ (only used for DTSTAMP)
-  function utcStamp(d) {
-    return d.getUTCFullYear() + pad2(d.getUTCMonth() + 1) + pad2(d.getUTCDate()) +
-           'T' + pad2(d.getUTCHours()) + pad2(d.getUTCMinutes()) + '00Z';
-  }
+  // Facebook / Instagram / Messenger / TikTok etc. render pages in a stripped
+  // down webview: `download` is ignored, blob: URLs are never handed to the OS,
+  // and there's no "open in app" plumbing. Detect it so we can offer a way out.
+  var inAppBrowser = (function () {
+    var ua = navigator.userAgent || '';
+    return /FBAN|FBAV|FB_IAB|Messenger|Instagram|LinkedInApp|Line\/|Twitter|Snapchat|Pinterest|TikTok|MicroMessenger/i.test(ua);
+  }());
 
-  var icsUrl = null;
-
-  // Hoisted so setLang() can call it before this point in the file.
   function refreshCalendarLinks() {
     var g = $('#cal-google'), i = $('#cal-ics');
     if (!g && !i) return;
@@ -290,46 +292,74 @@
     var start = dayStamp(startDay), end = dayStamp(endDay);
 
     if (g) {
-      g.href = 'https://calendar.google.com/calendar/render' +
-        '?action=TEMPLATE' +
-        '&text='     + encodeURIComponent(title) +
+      // `/calendar/u/0/r/eventedit` is the mobile-aware entry point: on a phone
+      // with the Google Calendar app installed it deep-links straight into the
+      // app, and it renders the mobile web UI otherwise. The old
+      // `/calendar/render?action=TEMPLATE` URL always forced the desktop site.
+      g.href = 'https://calendar.google.com/calendar/u/0/r/eventedit' +
+        '?text='     + encodeURIComponent(title) +
         '&dates='    + start + '/' + end +
         '&details='  + encodeURIComponent(note) +
-        '&location=' + encodeURIComponent(where);
+        '&location=' + encodeURIComponent(where) +
+        '&sf=true&output=xml';
     }
 
     if (i) {
-      var esc = function (s) { return String(s).replace(/([,;\\])/g, '\\$1').replace(/\n/g, '\\n'); };
-      var ics = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//Vavea & Linas//Save the Date//EN',
-        'CALSCALE:GREGORIAN',
-        'METHOD:PUBLISH',
-        'BEGIN:VEVENT',
-        'UID:vavea-linas-2027-07-31@vavea-linas',
-        'DTSTAMP:' + utcStamp(new Date()),
-        'DTSTART;VALUE=DATE:' + start,
-        'DTEND;VALUE=DATE:'   + end,
-        'SUMMARY:'     + esc(title),
-        'DESCRIPTION:' + esc(note),
-        'LOCATION:'    + esc(where),
-        'TRANSP:TRANSPARENT',
-        'X-MICROSOFT-CDO-ALLDAYEVENT:TRUE',
-        'BEGIN:VALARM',
-        'TRIGGER;RELATED=START:-P7D',
-        'ACTION:DISPLAY',
-        'DESCRIPTION:' + esc(title),
-        'END:VALARM',
-        'END:VEVENT',
-        'END:VCALENDAR'
-      ].join('\r\n');
+      // A real file served as text/calendar, per language. Built by
+      // tools/make-ics.mjs — see the comment at the top of that file for why
+      // this isn't generated in the browser any more.
+      i.setAttribute('href', 'assets/calendar/vavea-linas-' + lang + '.ics');
 
-      if (icsUrl) URL.revokeObjectURL(icsUrl);
-      icsUrl = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
-      i.href = icsUrl;
+      // The `download` attribute makes desktop browsers save the file (nice),
+      // but in-app webviews honour neither the attribute nor the MIME type and
+      // end up printing the raw text. Without it they at least navigate, which
+      // iOS/Android intercept and pass to the calendar.
+      if (inAppBrowser) i.removeAttribute('download');
+      else i.setAttribute('download', 'vavea-linas-2027-07-31.ics');
     }
   }
+
+  /* ── escape hatch for in-app browsers ── */
+  (function inAppNotice() {
+    if (!inAppBrowser) return;
+
+    var note = $('#cal-inapp');
+    var copy = $('#cal-copy');
+    if (note) note.hidden = false;
+    if (!copy) return;
+
+    copy.addEventListener('click', function () {
+      var url = location.href.split('#')[0];
+      var done = function () {
+        var old = copy.textContent;
+        copy.textContent = t('copied');
+        copy.classList.add('is-done');
+        setTimeout(function () {
+          copy.textContent = old;
+          copy.classList.remove('is-done');
+        }, 2600);
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done, function () { fallback(url, done); });
+      } else {
+        fallback(url, done);
+      }
+    });
+
+    // clipboard API is unavailable on insecure origins and in some webviews
+    function fallback(url, done) {
+      var ta = document.createElement('textarea');
+      ta.value = url;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:0;left:-9999px;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, url.length); // iOS needs an explicit range
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  }());
 
 
   /* ══════════════════ 6. FORM ══════════════════ */
