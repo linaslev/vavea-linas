@@ -8,13 +8,20 @@
      ⚙️  CONFIGURATION — edit these two values
      ══════════════════════════════════════════════════════════ */
   var CONFIG = {
-    // The wedding day (year, monthIndex 0-11, day, hour, minute) — local time.
-    weddingDate: new Date(2027, 6, 31, 15, 0, 0), // 31 July 2027, 15:00
+    // The wedding: 31 July 2027, 13:00 Lithuanian time (EEST = UTC+3 in July).
+    // Pinned to UTC on purpose so the countdown shows the same remaining time
+    // for every guest, wherever they are — not 13:00 in their own timezone.
+    weddingDate: new Date(Date.UTC(2027, 6, 31, 10, 0, 0)),
+
+    // The calendar date, as written on the invitation (Vilnius local).
+    // Kept separate from weddingDate so the all-day calendar entry can't drift
+    // to the wrong day for guests in far-off timezones.
+    weddingDay: { y: 2027, m: 7, d: 31 },
 
     // Paste your Google Apps Script Web App URL here.
     // See README.md → "Collecting the answers" for the 5-minute setup.
     // Leave as '' while developing: the form will run in demo mode.
-    endpoint: 'https://script.google.com/macros/s/AKfycbzSId_P1xQr2GQtw9QMjixNcTYYf0ucVCOcVuJXJQea-l0Tz6O503bnYKizsxO6iCXXuw/exec'
+    endpoint: 'https://script.google.com/macros/s/AKfycbybRzE4H_IhqsT5CJNoU48VlaKzwThb7ixQRYXGnNJGKkXGyx38d--h7DHfMeB7ILcTAw/exec'
   };
   /* ════════════════════════════════════════════════════════ */
 
@@ -254,9 +261,10 @@
 
   function pad2(n) { return n < 10 ? '0' + n : String(n); }
 
-  // local calendar date → YYYYMMDD (all-day / floating, no timezone)
+  // calendar date → YYYYMMDD (all-day / floating, no timezone).
+  // Built from UTC parts because the source Date is constructed with Date.UTC.
   function dayStamp(d) {
-    return d.getFullYear() + pad2(d.getMonth() + 1) + pad2(d.getDate());
+    return d.getUTCFullYear() + pad2(d.getUTCMonth() + 1) + pad2(d.getUTCDate());
   }
 
   // UTC timestamp → YYYYMMDDTHHMMSSZ (only used for DTSTAMP)
@@ -274,10 +282,10 @@
 
     var title = t('calTitle'), where = t('calWhere'), note = t('calNote');
 
-    var startDay = new Date(CONFIG.weddingDate);
-    startDay.setHours(0, 0, 0, 0);
+    var w = CONFIG.weddingDay;
+    var startDay = new Date(Date.UTC(w.y, w.m - 1, w.d));
     var endDay = new Date(startDay);
-    endDay.setDate(endDay.getDate() + 1); // exclusive end → single all-day event
+    endDay.setUTCDate(endDay.getUTCDate() + 1); // exclusive end → single all-day event
 
     var start = dayStamp(startDay), end = dayStamp(endDay);
 

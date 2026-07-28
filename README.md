@@ -40,8 +40,10 @@ filter and export when it's time to print address labels.
 2. In the menu: **Extensions → Apps Script**. A code editor opens.
 3. Delete the sample `function myFunction() {}` and paste in the **entire
    contents of `tools/google-apps-script.gs`**.
-4. *(Optional)* At the top of that script, put your email address in
-   `NOTIFY_EMAIL` to get an email for every submission.
+4. *(Optional)* At the top of that script, add one or more addresses to the
+   `NOTIFY_EMAILS` list to get an email for every submission — e.g.
+   `var NOTIFY_EMAILS = ['vavea@example.com', 'linas@example.com'];`
+   Leave the list empty for no emails.
 5. Click **Deploy → New deployment**.
    - Click the ⚙️ next to "Select type" → **Web app**
    - **Description:** anything, e.g. `guest form`

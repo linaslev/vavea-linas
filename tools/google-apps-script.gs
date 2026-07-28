@@ -5,8 +5,12 @@
    ══════════════════════════════════════════════════════════════════ */
 
 /* Optional: get an email every time somebody submits.
-   Put your address between the quotes, or leave '' for no emails. */
-var NOTIFY_EMAIL = '';
+   Add one address per line (both of you, if you like), or leave the list
+   empty for no emails at all. Everyone listed gets the same message. */
+var NOTIFY_EMAILS = [
+  // 'vavea@example.com',
+  // 'linas@example.com'
+];
 
 var HEADERS = [
   'Submitted at',
@@ -47,7 +51,7 @@ function doPost(e) {
          .setVerticalAlignment('top')
          .setWrap(true);
 
-    if (NOTIFY_EMAIL) notify(data);
+    notify(data);
 
     return json({ ok: true });
 
@@ -97,6 +101,14 @@ function getSheet() {
 }
 
 function notify(data) {
+  // drop blanks / commented-out entries, then hand Gmail one comma-separated list
+  var to = (NOTIFY_EMAILS || [])
+    .map(function (a) { return String(a).trim(); })
+    .filter(function (a) { return a.indexOf('@') > 0; })
+    .join(',');
+
+  if (!to) return;
+
   var subject = '💌 New save-the-date reply: ' + data.name;
   var body =
     data.name + '\n\n' +
@@ -104,7 +116,12 @@ function notify(data) {
     'Address:\n' + (data.address || '—') + '\n\n' +
     (data.note ? 'Note:\n' + data.note + '\n' : '');
 
-  MailApp.sendEmail(NOTIFY_EMAIL, subject, body);
+  // A failed email must never lose the row that's already been saved.
+  try {
+    MailApp.sendEmail(to, subject, body);
+  } catch (err) {
+    console.error('notify failed: ' + err);
+  }
 }
 
 function json(obj) {
