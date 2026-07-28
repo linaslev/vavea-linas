@@ -11,7 +11,6 @@ var NOTIFY_EMAIL = '';
 var HEADERS = [
   'Submitted at',
   'Name(s)',
-  'Email',
   'Postal address',
   'Attending',
   'Note',
@@ -37,7 +36,6 @@ function doPost(e) {
     sheet.appendRow([
       new Date(),
       String(data.name      || '').slice(0, 160),
-      String(data.email     || '').slice(0, 150),
       String(data.address   || '').slice(0, 500),
       String(data.attending || '').slice(0, 50),
       String(data.note      || '').slice(0, 800),
@@ -89,11 +87,10 @@ function getSheet() {
     sheet.setFrozenRows(1);
     sheet.setColumnWidth(1, 150); // submitted at
     sheet.setColumnWidth(2, 200); // name(s)
-    sheet.setColumnWidth(3, 210); // email
-    sheet.setColumnWidth(4, 280); // address
-    sheet.setColumnWidth(5, 130); // attending
-    sheet.setColumnWidth(6, 320); // note
-    sheet.setColumnWidth(7, 80);  // language
+    sheet.setColumnWidth(3, 280); // address
+    sheet.setColumnWidth(4, 130); // attending
+    sheet.setColumnWidth(5, 320); // note
+    sheet.setColumnWidth(6, 80);  // language
   }
 
   return sheet;
@@ -102,8 +99,7 @@ function getSheet() {
 function notify(data) {
   var subject = '💌 New save-the-date reply: ' + data.name;
   var body =
-    data.name + '\n' +
-    (data.email || '—') + '\n\n' +
+    data.name + '\n\n' +
     'Attending: ' + (data.attending || '—') + '\n\n' +
     'Address:\n' + (data.address || '—') + '\n\n' +
     (data.note ? 'Note:\n' + data.note + '\n' : '');
@@ -122,7 +118,6 @@ function json(obj) {
 function testAppend() {
   doPost({ postData: { contents: JSON.stringify({
     name:      'Test Guest & Plus One',
-    email:     'test@example.com',
     address:   'Gedimino pr. 1\n01103 Vilnius\nLithuania',
     attending: 'Yes',
     note:      'Delete this row afterwards 🙂',

@@ -147,6 +147,35 @@ body::before{
 .btn--solid::after{background:var(--cream-50)}
 .btn--solid:hover{color:var(--olive-900);border-color:var(--cream-50)}
 
+/* outline button that reads on a dark band */
+.btn--light{
+  --btn-fg:var(--cream-50);
+  --btn-bd:color-mix(in srgb,var(--sage-200) 70%,transparent);
+}
+.btn--light::after{background:var(--sage-200)}
+.btn--light:hover{color:var(--olive-900);border-color:var(--sage-200)}
+
+/* ---------- submit button + loader ---------- */
+.btn--submit{position:relative}
+.btn-spinner{
+  width:1.05em;height:1.05em;flex:0 0 auto;
+  border-radius:50%;
+  border:2px solid color-mix(in srgb,currentColor 28%,transparent);
+  border-top-color:currentColor;
+  display:none;
+  animation:btn-spin .7s linear infinite;
+}
+.btn-label--sending{display:none}
+.btn--submit.is-sending{cursor:progress;pointer-events:none}
+.btn--submit.is-sending .btn-spinner{display:inline-block}
+.btn--submit.is-sending .btn-label{display:none}
+.btn--submit.is-sending .btn-label--sending{display:inline}
+.btn--submit.is-sending .btn-arrow{display:none}
+@keyframes btn-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){
+  .btn-spinner{animation-duration:1.6s}
+}
+
 /* ============================================================
    botanicals
    ============================================================ */
@@ -564,6 +593,83 @@ body::before{
   padding:1rem 1.2rem;border-left:3px solid var(--wine-600);
 }
 .form-status.is-err{color:#eaa8b0}
+
+/* ---------- thank-you panel (replaces the form once sent) ---------- */
+.thankyou{
+  position:relative;
+  text-align:center;
+  display:grid;justify-items:center;gap:.75rem;
+  padding:clamp(2.2rem,6vw,3.4rem) clamp(1.4rem,5vw,3rem);
+  background:color-mix(in srgb,var(--olive-900) 45%,transparent);
+  border:1px solid color-mix(in srgb,var(--sage-200) 35%,transparent);
+  border-radius:var(--radius);
+  box-shadow:0 24px 60px -30px rgba(0,0,0,.55);
+}
+.thankyou[hidden]{display:none}
+.thankyou.is-in{animation:ty-in .8s var(--ease) both}
+@keyframes ty-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+.thankyou-mark{
+  width:3.1rem;height:3.1rem;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:var(--sage-200);
+  color:var(--olive-900);
+  margin-bottom:.4rem;
+}
+.thankyou-mark svg{
+  width:1.5rem;height:1.5rem;
+  fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:26;stroke-dashoffset:26;
+  animation:ty-check .6s .25s var(--ease) forwards;
+}
+@keyframes ty-check{to{stroke-dashoffset:0}}
+
+.thankyou-script{
+  font-family:var(--f-script);
+  font-size:clamp(2.2rem,1.6rem + 2.6vw,3.4rem);
+  line-height:1.05;
+  color:var(--sage-200);
+  margin:0;
+}
+.thankyou-title{
+  font-family:var(--f-serif);
+  font-weight:300;
+  font-size:clamp(1.35rem,1.1rem + 1.2vw,1.9rem);
+  line-height:1.3;
+  color:var(--cream-50);
+  margin:0;max-width:26ch;
+}
+.thankyou-text{
+  margin:.2rem 0 0;max-width:38ch;
+  line-height:1.9;
+  color:color-mix(in srgb,var(--cream-100) 80%,transparent);
+}
+.thankyou-sprig{
+  width:1.6rem;height:1.6rem;
+  color:var(--sage-300);opacity:.75;
+  margin:.9rem 0 .2rem;
+}
+.thankyou-cal-label{
+  margin:0;
+  font-family:var(--f-sans);
+  font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;
+  color:color-mix(in srgb,var(--cream-100) 72%,transparent);
+}
+.thankyou-actions{
+  display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;
+  margin-top:.55rem;
+}
+.thankyou-actions .btn{padding:.95em 1.7em;font-size:.72rem}
+@media (max-width:420px){
+  .thankyou-actions{flex-direction:column;align-self:stretch}
+  .thankyou-actions .btn{justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  .thankyou.is-in{animation:none}
+  .thankyou-mark svg{animation:none;stroke-dashoffset:0}
+}
 
 /* ============================================================
    footer

@@ -266,11 +266,6 @@
       </p>
 
       <p class="field">
-        <label for="f-email" data-i18n data-en="Email address" data-lt="El. pašto adresas" data-fr="Adresse e-mail">Email address</label>
-        <input id="f-email" name="email" type="email" required maxlength="120" autocomplete="email" inputmode="email">
-      </p>
-
-      <p class="field">
         <label for="f-address" data-i18n data-en="Postal address (for the invitation)" data-lt="Pašto adresas (pakvietimui)" data-fr="Adresse postale (pour l’invitation)">Postal address (for the invitation)</label>
         <textarea id="f-address" name="address" rows="4" required maxlength="400" autocomplete="street-address"
           data-i18n-placeholder
@@ -312,9 +307,11 @@
         <input id="f-hp" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
       </p>
 
-      <button class="btn btn--solid" type="submit" data-submit>
-        <span data-i18n data-en="Send my address" data-lt="Siųsti adresą" data-fr="Envoyer mon adresse">Send my address</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>
+      <button class="btn btn--solid btn--submit" type="submit" data-submit>
+        <span class="btn-spinner" aria-hidden="true"></span>
+        <span class="btn-label" data-i18n data-en="Send my address" data-lt="Siųsti adresą" data-fr="Envoyer mon adresse">Send my address</span>
+        <span class="btn-label btn-label--sending" data-i18n data-en="Sending…" data-lt="Siunčiama…" data-fr="Envoi en cours…">Sending…</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>
       </button>
 
       <p class="form-privacy" data-i18n
@@ -326,6 +323,43 @@
 
       <p class="form-status" id="form-status" role="status" aria-live="polite" tabindex="-1"></p>
     </form>
+
+    <!-- shown once the form has been sent -->
+    <div class="thankyou" id="thankyou" role="status" aria-live="polite" tabindex="-1" hidden>
+      <span class="thankyou-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M4 12.8 9.2 18 20 6.6"/></svg>
+      </span>
+      <p class="thankyou-script" data-i18n data-en="thank you" data-lt="dėkojame" data-fr="merci">thank you</p>
+      <h3 class="thankyou-title" data-i18n
+          data-en="Your address is safely with us"
+          data-lt="Jūsų adresas jau saugiai pas mus"
+          data-fr="Votre adresse est bien arrivée">
+        Your address is safely with us
+      </h3>
+      <p class="thankyou-text" data-i18n
+         data-en="A proper invitation will find its way to your letterbox closer to the day. Until then, pencil us in — 31st of July 2027, Vilnius."
+         data-lt="Artėjant šventei tikras pakvietimas atkeliaus tiesiai į jūsų paštą. O kol kas — pasižymėkite datą: 2027 m. liepos 31 d., Vilnius."
+         data-fr="Une véritable invitation trouvera le chemin de votre boîte aux lettres à l’approche du grand jour. D’ici là, notez la date : 31 juillet 2027, Vilnius.">
+        A proper invitation will find its way to your letterbox closer to the day. Until then, pencil us in — 31st of July 2027, Vilnius.
+      </p>
+
+      <svg class="thankyou-sprig" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#sprig"/></svg>
+
+      <p class="thankyou-cal-label" data-i18n
+         data-en="Add the date to your calendar"
+         data-lt="Įsidėkite datą į savo kalendorių"
+         data-fr="Ajoutez la date à votre agenda">
+        Add the date to your calendar
+      </p>
+      <div class="thankyou-actions">
+        <a class="btn btn--solid" id="cal-google" href="#" target="_blank" rel="noopener">
+          <span data-i18n data-en="Google Calendar" data-lt="Google kalendorius" data-fr="Google Calendar">Google Calendar</span>
+        </a>
+        <a class="btn btn--light" id="cal-ics" href="#" download="vavea-linas-2027-07-31.ics">
+          <span data-i18n data-en="Apple / Outlook (.ics)" data-lt="Apple / Outlook (.ics)" data-fr="Apple / Outlook (.ics)">Apple / Outlook (.ics)</span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 

@@ -14,7 +14,7 @@
     // Paste your Google Apps Script Web App URL here.
     // See README.md → "Collecting the answers" for the 5-minute setup.
     // Leave as '' while developing: the form will run in demo mode.
-    endpoint: 'https://script.google.com/macros/s/AKfycbwwlHPWbNLq4D4qC-I1PywBmc4WKvpNFWZDMRZDkSgN4WtshULoBTo4VYcbCjzuyAN8QQ/exec'
+    endpoint: 'https://script.google.com/macros/s/AKfycbzSId_P1xQr2GQtw9QMjixNcTYYf0ucVCOcVuJXJQea-l0Tz6O503bnYKizsxO6iCXXuw/exec'
   };
   /* ════════════════════════════════════════════════════════ */
 
@@ -28,32 +28,38 @@
     en: {
       sending:  'Sending…',
       sent:     'Thank you! Your details are safely with us — a proper invitation will be on its way. 💌',
-      failed:   'Something went wrong. Please try again, or email us at hello@vavea-linas.lt',
+      failed:   'Something went wrong. Please try again — or just get in touch with Vavea and Linas directly.',
       demo:     'Demo mode: no backend connected yet, so nothing was sent. See README.md to hook up the Google Sheet.',
       required: 'Please fill this in',
-      email:    'Please enter a valid email address',
       choose:   'Please pick one',
-      close:    'Close', prev: 'Previous', next: 'Next', photo: 'Photo'
+      close:    'Close', prev: 'Previous', next: 'Next', photo: 'Photo',
+      calTitle: 'Vavea & Linas — Wedding',
+      calWhere: 'Vilnius, Lithuania',
+      calNote:  'Vavea and Linas are getting married. A proper invitation with all the details will follow.'
     },
     lt: {
       sending:  'Siunčiama…',
       sent:     'Dėkojame! Jūsų duomenys jau pas mus — tikras pakvietimas jau pakeliui. 💌',
-      failed:   'Kažkas nutiko. Pabandykite dar kartą arba rašykite hello@vavea-linas.lt',
+      failed:   'Kažkas nutiko. Pabandykite dar kartą arba susisiekite tiesiogiai su Vavea ir Linu.',
       demo:     'Demonstracinis režimas: serveris dar nesujungtas, todėl niekas nebuvo išsiųsta. Žr. README.md.',
       required: 'Užpildykite šį lauką',
-      email:    'Įveskite teisingą el. pašto adresą',
       choose:   'Pasirinkite vieną',
-      close:    'Uždaryti', prev: 'Ankstesnė', next: 'Kita', photo: 'Nuotrauka'
+      close:    'Uždaryti', prev: 'Ankstesnė', next: 'Kita', photo: 'Nuotrauka',
+      calTitle: 'Vavea ir Linas — Vestuvės',
+      calWhere: 'Vilnius, Lietuva',
+      calNote:  'Vavea ir Linas tuokiasi. Tikras pakvietimas su visa informacija atkeliaus vėliau.'
     },
     fr: {
       sending:  'Envoi en cours…',
       sent:     'Merci ! Vos coordonnées sont bien arrivées — une véritable invitation est en route. 💌',
-      failed:   'Une erreur est survenue. Merci de réessayer ou de nous écrire à hello@vavea-linas.lt',
+      failed:   'Une erreur est survenue. Merci de réessayer ou de contacter directement Vavea et Linas.',
       demo:     'Mode démo : aucun serveur n’est encore connecté, rien n’a donc été envoyé. Voir README.md.',
       required: 'Merci de remplir ce champ',
-      email:    'Merci de saisir une adresse e-mail valide',
       choose:   'Merci de choisir une option',
-      close:    'Fermer', prev: 'Précédente', next: 'Suivante', photo: 'Photo'
+      close:    'Fermer', prev: 'Précédente', next: 'Suivante', photo: 'Photo',
+      calTitle: 'Vavea & Linas — Mariage',
+      calWhere: 'Vilnius, Lituanie',
+      calNote:  'Vavea et Linas se marient. Une véritable invitation avec tous les détails suivra.'
     }
   };
 
@@ -86,6 +92,9 @@
     Object.keys(lb).forEach(function (sel) {
       var el = $(sel); if (el) el.setAttribute('aria-label', t(lb[sel]));
     });
+
+    // calendar links carry translated title/location/notes
+    refreshCalendarLinks();
 
     if (remember) { try { localStorage.setItem('vl-lang', lang); } catch (e) {} }
   }
@@ -238,13 +247,104 @@
   }());
 
 
-  /* ══════════════════ 5. FORM ══════════════════ */
+  /* ══════════════════ 5. ADD TO CALENDAR ══════════════════ */
+  // The event is added as an ALL-DAY event (no start time), so it sits at the
+  // top of the guest's day instead of blocking 15:00. All-day events use plain
+  // YYYYMMDD dates and an EXCLUSIVE end date, i.e. the day after.
+
+  function pad2(n) { return n < 10 ? '0' + n : String(n); }
+
+  // local calendar date → YYYYMMDD (all-day / floating, no timezone)
+  function dayStamp(d) {
+    return d.getFullYear() + pad2(d.getMonth() + 1) + pad2(d.getDate());
+  }
+
+  // UTC timestamp → YYYYMMDDTHHMMSSZ (only used for DTSTAMP)
+  function utcStamp(d) {
+    return d.getUTCFullYear() + pad2(d.getUTCMonth() + 1) + pad2(d.getUTCDate()) +
+           'T' + pad2(d.getUTCHours()) + pad2(d.getUTCMinutes()) + '00Z';
+  }
+
+  var icsUrl = null;
+
+  // Hoisted so setLang() can call it before this point in the file.
+  function refreshCalendarLinks() {
+    var g = $('#cal-google'), i = $('#cal-ics');
+    if (!g && !i) return;
+
+    var title = t('calTitle'), where = t('calWhere'), note = t('calNote');
+
+    var startDay = new Date(CONFIG.weddingDate);
+    startDay.setHours(0, 0, 0, 0);
+    var endDay = new Date(startDay);
+    endDay.setDate(endDay.getDate() + 1); // exclusive end → single all-day event
+
+    var start = dayStamp(startDay), end = dayStamp(endDay);
+
+    if (g) {
+      g.href = 'https://calendar.google.com/calendar/render' +
+        '?action=TEMPLATE' +
+        '&text='     + encodeURIComponent(title) +
+        '&dates='    + start + '/' + end +
+        '&details='  + encodeURIComponent(note) +
+        '&location=' + encodeURIComponent(where);
+    }
+
+    if (i) {
+      var esc = function (s) { return String(s).replace(/([,;\\])/g, '\\$1').replace(/\n/g, '\\n'); };
+      var ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Vavea & Linas//Save the Date//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        'UID:vavea-linas-2027-07-31@vavea-linas',
+        'DTSTAMP:' + utcStamp(new Date()),
+        'DTSTART;VALUE=DATE:' + start,
+        'DTEND;VALUE=DATE:'   + end,
+        'SUMMARY:'     + esc(title),
+        'DESCRIPTION:' + esc(note),
+        'LOCATION:'    + esc(where),
+        'TRANSP:TRANSPARENT',
+        'X-MICROSOFT-CDO-ALLDAYEVENT:TRUE',
+        'BEGIN:VALARM',
+        'TRIGGER;RELATED=START:-P7D',
+        'ACTION:DISPLAY',
+        'DESCRIPTION:' + esc(title),
+        'END:VALARM',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      if (icsUrl) URL.revokeObjectURL(icsUrl);
+      icsUrl = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
+      i.href = icsUrl;
+    }
+  }
+
+
+  /* ══════════════════ 6. FORM ══════════════════ */
   (function form() {
     var form   = $('#rsvp-form');
     var status = $('#form-status');
+    var thanks = $('#thankyou');
     if (!form) return;
 
     var btn = $('[data-submit]', form);
+
+    function succeed() {
+      form.reset();
+      clearErrors();
+      say('');
+      form.hidden = true;
+      if (!thanks) { say(t('sent'), 'is-ok'); form.hidden = false; return; }
+      refreshCalendarLinks();
+      thanks.hidden = false;
+      // let the browser paint the hidden→visible switch before animating
+      requestAnimationFrame(function () { thanks.classList.add('is-in'); });
+      thanks.focus();
+    }
 
     function fieldOf(input) { return input.closest('.field'); }
 
@@ -277,12 +377,6 @@
         if (!el.value.trim()) { addError(el, t('required')); bad = bad || el; }
       });
 
-      var email = $('#f-email', form);
-      if (!email.value.trim())                      { addError(email, t('required')); bad = bad || email; }
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) {
-        addError(email, t('email')); bad = bad || email;
-      }
-
       var picked = $('input[name="attending"]:checked', form);
       if (!picked) {
         var fs = $('.field--choice', form);
@@ -310,13 +404,12 @@
       e.preventDefault();
 
       // honeypot — silently pretend success for bots
-      if ($('#f-hp', form).value) { say(t('sent'), 'is-ok'); return; }
+      if ($('#f-hp', form).value) { succeed(); return; }
 
       if (!validate()) return;
 
       var data = {
         name:      $('#f-name', form).value.trim(),
-        email:     $('#f-email', form).value.trim(),
         address:   $('#f-address', form).value.trim(),
         attending: ($('input[name="attending"]:checked', form) || {}).value || '',
         note:      $('#f-note', form).value.trim(),
@@ -327,10 +420,18 @@
       // ── demo mode ─────────────────────────────────────────
       if (!CONFIG.endpoint) {
         console.log('[Vavea & Linas] Form data (demo mode — nothing sent):', data);
-        say(t('demo'), 'is-ok');
+        btn.classList.add('is-sending');
+        btn.disabled = true;
+        say(t('sending'));
+        setTimeout(function () {
+          btn.classList.remove('is-sending');
+          btn.disabled = false;
+          succeed();
+        }, 900);
         return;
       }
 
+      btn.classList.add('is-sending');
       btn.disabled = true;
       say(t('sending'));
 
@@ -349,16 +450,16 @@
         })
         .then(function (res) {
           if (res && res.ok === false) throw new Error(res.error || 'rejected');
-          form.reset();
-          clearErrors();
-          say(t('sent'), 'is-ok');
-          status.focus();
+          succeed();
         })
         .catch(function (err) {
           console.error('[Vavea & Linas] submit failed:', err);
           say(t('failed'), 'is-err');
         })
-        .then(function () { btn.disabled = false; });
+        .then(function () {
+          btn.classList.remove('is-sending');
+          btn.disabled = false;
+        });
     });
 
     // clear a field's error as soon as the guest starts fixing it
