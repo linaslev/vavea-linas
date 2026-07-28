@@ -543,7 +543,8 @@ body::before{
   font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
   font-weight:600;
   color:var(--cream-50);
-  display:flex;align-items:baseline;gap:.6em;
+  /* the hint (<em>) sits on its own line under the label */
+  display:flex;flex-direction:column;align-items:flex-start;gap:.5em;
 }
 .field label em{font-style:normal;letter-spacing:.1em;text-transform:none;font-size:.92em;font-weight:400;color:color-mix(in srgb,var(--cream-100) 78%,transparent)}
 
