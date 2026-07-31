@@ -1,8 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#3d4a2c"/>
-  <g fill="none" stroke="#cfd7c0" stroke-width="2.2" stroke-linecap="round">
-    <path d="M14 20l8 22 8-22"/>
-    <path d="M40 20v22h11"/>
+  <rect width="64" height="64" rx="12" fill="#f7f2e8"/>
+  <style>
+    .initial { font-family: "Pinyon Script", "Snell Roundhand", "Apple Chancery", cursive; font-size: 36px; font-weight: 400; text-anchor: middle; }
+    .amp { font-family: "Pinyon Script", "Snell Roundhand", "Apple Chancery", cursive; font-size: 19px; font-weight: 400; text-anchor: middle; }
+  </style>
+  <g transform="translate(27 30) scale(.82) translate(-32 -32)">
+    <text class="initial" x="18" y="44" fill="#3d4a2c">V</text>
+    <text class="amp" x="32" y="38" fill="#8c4250">&amp;</text>
+    <text class="initial" x="46" y="44" fill="#3d4a2c">L</text>
   </g>
-  <circle cx="34.5" cy="18" r="2.6" fill="#8c4250"/>
 </svg>

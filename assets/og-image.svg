@@ -41,18 +41,18 @@
     </g>
   </g>
 
-  <!-- text -->
-  <text x="600" y="248" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="34" letter-spacing="14" fill="#61713f">SAVE THE DATE</text>
+  <!-- Text is split to match the hero: calligraphic names, olive ampersand. -->
+  <text x="600" y="270" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="34" letter-spacing="14" fill="#61713f">SAVE THE DATE</text>
 
-  <text x="600" y="368" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-style="italic" font-size="108" fill="#5c2230">Vavea &amp; Linas</text>
+  <text x="415" y="390" text-anchor="middle" font-family="'Snell Roundhand','Apple Chancery',cursive" font-size="130" fill="#5c2230">Vavea</text>
+  <text x="632" y="382" text-anchor="middle" font-family="'Snell Roundhand','Apple Chancery',cursive" font-size="74" fill="#61713f">&amp;</text>
+  <text x="805" y="390" text-anchor="middle" font-family="'Snell Roundhand','Apple Chancery',cursive" font-size="130" fill="#5c2230">Linas</text>
 
   <g stroke="#7c8a5a" stroke-width="1.5" opacity=".7">
-    <path d="M420 412h140M640 412h140"/>
+    <path d="M420 438h140M640 438h140"/>
   </g>
   <g fill="#7c8a5a" opacity=".8">
-    <circle cx="600" cy="412" r="4"/>
+    <circle cx="600" cy="438" r="4"/>
   </g>
-
-  <text x="600" y="474" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="40" letter-spacing="6" fill="#38341f">31st of July 2027</text>
-  <text x="600" y="524" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="22" letter-spacing="10" fill="#8b8570">VILNIUS · LITHUANIA</text>
+  <text x="600" y="498" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="22" letter-spacing="10" fill="#8b8570">VILNIUS · LITHUANIA</text>
 </svg>

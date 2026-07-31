@@ -10,7 +10,7 @@ index.html                    everything on one page
 css/style.css                 all styles + the colour palette
 js/app.js                     countdown, language toggle, gallery, form
 assets/favicon.svg
-assets/og-image.svg           link preview card
+assets/og-image.jpg           link preview card (generated from og-image.svg)
 assets/gallery/*.svg          placeholder photos — replace these
 tools/google-apps-script.gs   the form backend (paste into Google)
 tools/make-placeholders.mjs   regenerates the placeholder art (optional)
